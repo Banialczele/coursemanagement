@@ -8,11 +8,12 @@ const auth = async (req,res,next) => {
 		const decoded = jwt.verify(token,'superkeytoken');
 		const user = await Student.findOne({ _id: decoded._id, 'tokens.token': token});
 
+		console.log(`${token}`);
 		if(!user){
 			throw new Error();
 		}
-		req.user = user;
 		req.token = token;
+		req.user = user;
 		next();
 		
 	} catch (error) {

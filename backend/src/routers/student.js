@@ -1,15 +1,23 @@
 const Student = require('../models/studentModel');
 const express = require('express');
 const auth = require('../middleware/auth');
+const authTeacher = require('../middleware/authTeacher');
 const router = new express.Router();
-
-router.post('/students/add',async(req,res) => {
-	const student = new Student(req.body);
+                                                  	
+router.post('/students/add', async(req,res) => {
+	const student = new Student({
+		...req.body,
+		presences: [
+			{
+				presence: false,
+				date: new Date()
+			}
+		]
+	});
 	try {
-		const token = await student.generateAuthToken();
 		await student.save();
 		res.status(201)
-		   .send({student,token});
+		   .send(student);
 	} catch(error) {
 		res.status(400)
 		   .send(error);
@@ -31,7 +39,23 @@ router.post('/students/login',async(req,res) => {
 	}
 });
 
-router.get('/students/obtainAll',auth,async(req,res) => {
+router.post('/students/logout',auth,async(req,res) => {
+	try {
+		req.user.tokens = req.user.tokens.filter((token) => {
+			return token.token !== req.token;
+		});
+
+		await req.user.save();
+		res.status(200)
+		   .send();
+	} catch(e) {
+		res.status(500)
+		   .send();
+
+	}
+});
+
+router.get('/students/getAll',async(req,res) => {
 	try {
 		const student = await Student.find({});
 		res.status(200)

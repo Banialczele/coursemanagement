@@ -1,3 +1,4 @@
+const Course = require('./courseModel');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -25,35 +26,39 @@ const studentSchema = new mongoose.Schema({
 			}
 		}
 	},
-	password: {
-		type: String,
-		required: true,
-		minlength: 7,
-		trim: true,
-		validate(value) {
-			if(value.includes('password')) {
-				throw new Error('Password cannot contain word password');
-			}
-		}
+	course: {
+		type: mongoose.Schema.Types.Object,
+		ref: 'Course'
 	},
-	tokens: [{
-			token: {
-				type: String,
+	grade: {
+		type: Number
+	},
+	weight: {
+		type: Number
+	},
+	presences: [
+		{
+			presence: {
+				type: Boolean,
 				required: true
+			},
+			date: {
+				type: Date
 			}
 		}
-	],
-	// grades: {
-	// 	type: Number
-	// },
-	// presence: {
-	// 	type: Boolean,
-	// 	required: true
-	// }
+	]
 });
 
+studentSchema.methods.toJSON = function() {
+	const userObject = this.toObject();
+	delete userObject.password;
+	return userObject;
+};
+
 studentSchema.methods.generateAuthToken = async function() {
-	const authToken = jwt.sign({_id: this._id.toString()},'superkeytoken',{expiresIn: '2 hours'});
+	const authToken = jwt.sign({
+		_id: this._id.toString()
+	},'superkeytoken');
 	this.tokens = this.tokens.concat({token: authToken});
 	await this.save();
 	return authToken;
@@ -62,7 +67,7 @@ studentSchema.methods.generateAuthToken = async function() {
 studentSchema.statics.findByCredentials = async(email,password) => {
 	//now we are looking for user by it's email, then we compare found user with provided password
 	const student = await Student.findOne({email});
-
+	console.log(student);
 	if(!student) {
 		throw new Error('Student not found');
 	}
@@ -77,7 +82,7 @@ studentSchema.statics.findByCredentials = async(email,password) => {
 //hash the plain text password before saving
 studentSchema.pre('save',async function(next) {
 	if(this.isModified('password')) {
-		this.password = await bcrypt.hash(this.password,8);
+		this.password = await bcrypt.hash(this.password,10);
 	}
 	next();
 });

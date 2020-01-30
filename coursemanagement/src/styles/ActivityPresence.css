@@ -1,0 +1,19 @@
+.studentContainer {
+    padding: 25px;
+}
+
+.student-Data {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 1px;
+}
+
+.student-Detail {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 1px;
+}

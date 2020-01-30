@@ -1,0 +1,33 @@
+.My-Courses {
+    background: limegreen;
+    margin: 0 auto;
+    width: 60vw;
+    height: 90vh;
+    text-align: center;
+}
+
+.table-data {
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+}
+
+.table-data thead {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.table-data tbody {
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.table-data tr {
+}
+
+.table-data td {
+}
+
+table.table-student-data {
+    text-align: center;
+    width: 100%;
+}
+
