@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import GradesDetail from "./GradesDetail";
-import Popup from 'reactjs-popup';
 import moment from 'moment';
 
 //component to display list of courses with their grades and presence
@@ -9,36 +7,31 @@ import moment from 'moment';
 class Grades extends React.Component {
 	state = {
 		courses: [],
-		studentList: []
+		students: []
 	};
 
 	componentDidMount() {
-		axios('http://localhost:3000/course/get',{
-			method: 'get',
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(res => this.setState({courses: res.data}))
-			.catch(err => console.log(err));
-
+		// axios('http://localhost:3000/course/get',{
+		// 	method: 'get',
+		// 	headers: {
+		// 		"Content-Type": "application/json"
+		// 	}
+		// })
+		// 	.then(res => this.setState({courses: res.data}))
+		// 	.catch(err => console.log(err));
+		axios.get('http://localhost:3000/students/getAll')
+		     .then(res => this.setState({students: res.data}))
+		     .catch(err => console.log(err));
 	}
-
-	getStudentDetail = ( studentList ) => {
-		const list = studentList.map( student => {
-			return student.students;
-		});
-		return list;
-	};
-
 	showTableHeader = () => {
 		return (
-			<thead>
-				<tr>
-					<th>Kurs</th>
+			<thead className="GradeTableHeader">
+				<tr className="GradeTableHeaderRow">
+					<th>Nazwa kursu</th>
 					<th>Data rozpoczęcia zajęć</th>
 					<th>Data kolejnych zajęć</th>
-					<th>Informacje o studentach </th>
+					<th>Lista studentów</th>
+					<th>Wyświetl ocenę końcową</th>
 				</tr>
 			</thead>
 		);
@@ -46,47 +39,47 @@ class Grades extends React.Component {
 
 	showDate = (date) => {
 		const currentDate = new Date(date);
-		return (`${currentDate.getFullYear()}-${currentDate.getMonth()+1    }-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`);
+		return (`${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`);
 	};
 
-	showMonday = () => {
-		let d = new Date();
-		d.setDate(d.getDate() + ( d.getDay() + 7 - d.getDay() ));
-		console.log(d.toISOString());
-	};
-
-	showTableData = (courses) => {
+	showTableData = (students) => {
+		console.log(students);
 		return (
-			courses.map( (course, i ) => {
+			students.map((student,i) => {
+				console.log(student);
 				return (
 					<tbody key={i}>
-						<tr>
-							<td>{course.name}</td>
-							<td>{moment(this.showDate(course.startingDate)).format('D/MM/YYYY h:mm')}</td>
-							<td>{moment(this.showDate(course.nextClasses)).format('D/MM/YYYY h:mm')}</td>
+						<tr key={i}>
+							<td>{student.course.name}</td>
+							<td>{moment(this.showDate(student.course.startingDate))
+								.format('D/MM/YYYY h:mm')}</td>
+							<td>{moment(this.showDate(student.course.nextClasses))
+								.format('D/MM/YYYY h:mm')}</td>
 							<td>
-								<Popup modal trigger={<button>Zobacz więcej</button>}>
-									<GradesDetail studentList={this.getStudentDetail(this.state.courses)}/>
-								</Popup>
+								{student.name} {student.last}
 							</td>
+							<td>Ocena końcowa: button</td>
 						</tr>
 					</tbody>
 				)
 			})
 		);
 	};
+
 	render() {
-		this.showMonday();
 		return (
 			<div>
 				<table className="Grades table">
 					{this.showTableHeader()}
-					{this.showTableData(this.state.courses)}
+					{this.showTableData(this.state.students)}
 				</table>
 			</div>
 		);
 	}
 }
+
+//
+//
 
 
 export default Grades;

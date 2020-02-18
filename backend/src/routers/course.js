@@ -7,16 +7,18 @@ const moment = require('moment');
 
 //adding course
 router.post('/course/add',async(req,res) => {
-	const course = new Course({
-		...req.body,
-		startingDate: req.body.startingDate,
-		nextClasses: req.body.startingDate,
-		// owner: {
-		// 	name: req.teacher.name,
-		// 	email: req.teacher.email
-		// }
-	});
+	console.log(...req.body.students);
 	try {
+		const course = await new Course({
+			...req.body,
+			startingDate: req.body.startingDate,
+			nextClasses: req.body.startingDate,
+			// owner: {
+			// 	name: req.teacher.name,
+			// 	email: req.teacher.email
+			// }
+		});
+
 		course.save();
 		res.status(201)
 		   .send(course);
@@ -29,14 +31,14 @@ router.post('/course/add',async(req,res) => {
 //getting all courses add authTeacher
 router.get('/course/get',async(req,res) => {
 	try {
-		const course = await Course.find({})
-		                           .populate('_id');
+		const course = await Course.find({});
 		res.status(200)
 		   .send(course);
 	} catch(e) {
 		res.status(400)
 		   .send();
 	}
+
 });
 
 //get course by id

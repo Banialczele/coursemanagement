@@ -40,7 +40,7 @@ class AddCourse extends React.Component {
 					                 name: student.name,
 					                 last: student.last,
 					                 email: student.email,
-					                 course: res.data._id       
+					                 course: res.data._id
 				                 },{
 					                 headers: {
 						                 "Content-Type": "application/json"

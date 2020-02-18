@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
-const Teacher = require('./teacherModel');
-
 const courseSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -19,10 +16,12 @@ const courseSchema = new mongoose.Schema({
 	nextClasses: {
 		type: Date
 	},
-	students: [{
-		type: mongoose.Schema.Types.Object,
-		required: true
-	}]
+	students: [
+		{
+			type: mongoose.Schema.Types.Object,
+			ref: 'Student'
+		}
+	]
 
 });
 

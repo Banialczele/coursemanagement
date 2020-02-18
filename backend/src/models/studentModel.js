@@ -26,16 +26,6 @@ const studentSchema = new mongoose.Schema({
 			}
 		}
 	},
-	course: {
-		type: mongoose.Schema.Types.Object,
-		ref: 'Course'
-	},
-	grade: {
-		type: Number
-	},
-	weight: {
-		type: Number
-	},
 	presences: [
 		{
 			presence: {
@@ -45,6 +35,27 @@ const studentSchema = new mongoose.Schema({
 			date: {
 				type: Date
 			}
+		}
+	],
+	course: {
+		type: mongoose.Schema.Types.Object,
+		ref: 'Course'
+	},
+	grades: [
+		{
+			grade: {
+				type: Number
+			},
+			date: Date
+		}
+	],
+	weights: [
+		{
+			weight: {
+				type: Number
+			},
+			name: String,
+			date: Date
 		}
 	]
 });
