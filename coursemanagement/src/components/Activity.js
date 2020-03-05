@@ -4,20 +4,27 @@ import moment from 'moment';
 import Popup from 'reactjs-popup';
 import ActivityPresence from "./ActivityPresence";
 import AddGrade from "./AddGrade";
+import '../styles/Activity.css';
+import NoClasses from "./NoClasses";
 
 class Activity extends React.Component {
 	state = {
-		courses: []
+		courses: [],
+		isLogged: false
 	};
 
 	componentDidMount() {
-		axios.get('http://localhost:3000/course/get',{
-			     headers: {
-				     "Content-Type": "application/json"
-			     }
-		     })
-		     .then(res => this.setState({courses: res.data}))
-		     .catch(err => console.log(err));
+		if(localStorage.length > 1) {
+			this.setState({isLogged: true});
+			axios.get('http://localhost:3000/course/getAll',{
+				     headers: {
+					     "Content-Type": "application/json",
+					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`
+				     }
+			     })
+			     .then(res => this.setState({courses: res.data}))
+			     .catch(err => console.log(err));
+		}
 	}
 
 	getCurrentDay = () => {
@@ -32,7 +39,7 @@ class Activity extends React.Component {
 				.isSame(this.getCurrentDay(),'day'))) {
 				return course;
 			}
-		}))
+		}));
 	});
 
 	showDailyClasses = (() => {
@@ -40,41 +47,46 @@ class Activity extends React.Component {
 		if(courses.length !== 0) {
 			return courses.map((course,index) => {
 				return (
-					<div className="flex-item" key={index}>
+					<div className="grid-item" key={index}>
 						Nazwa kursu {course.name}
-						<div className="flex-item">
+						<div className="grid-item">
 							<Popup
 								modal
 								trigger={<button type="button" value="Sprawdź obecność">Sprawdź obecność</button>}>
-								<ActivityPresence courseDate={course.nextClasses} studentData={course.students}/>
+								<ActivityPresence startingClasses={course.startingDate} courseDate={course.nextClasses} studentData={course.students}/>
 							</Popup>
 						</div>
 						<div>
 							<Popup modal trigger={<button>Dodaj ocene</button>}>
-								<AddGrade course={course}/>
+								<AddGrade courseDate={course.nextClasses} course={course}/>
 							</Popup>
 						</div>
-						{/*<div className="flex-item">Dodaj ocene</div>*/}
 					</div>
 				)
 			})
 		} else {
-			return (<div> There are no classes today!</div>)
+			return (<NoClasses/>)
 		}
 	});
 
 
 
 	render() {
-		return (
-			<div className="Activity-container">
-				<div className="Activity-child">
-					<div className="flex-container">
-						{this.showDailyClasses()}
+		if(this.state.isLogged === true) {
+			return (
+				<div className="Activity-container">
+					<div className="Activity-child">
+						<div className="grid-container">
+							{this.showDailyClasses()}
+						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		} else {
+			return (
+				<div style={{color: 'red'}}>Please login to continue!</div>
+			)
+		}
 	}
 }
 

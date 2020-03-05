@@ -1,19 +1,23 @@
 import React from 'react';
 import axios from "axios";
+
 const DoLogin = async(email,password) => {
-	const loginTeacher = await axios.post('http://localhost:3000/teachers/login',{
+	const loginTeacher = await axios.post(
+		'http://localhost:3000/teachers/login',{
 		email,
 		password
 	});
-
 	return loginTeacher;
 };
 
 class Login extends React.Component {
 	state = {
 		email: '',
+		teacher: '',
 		password: '',
-		logged: false
+		logged: false,
+		status: '',
+		showingMessage: ''
 	};
 
 	onEmailChange = (e) => {
@@ -33,9 +37,15 @@ class Login extends React.Component {
 		DoLogin(this.state.email,this.state.password)
 			.then(res => {
 				localStorage.setItem('mysecrettoken',res.data.token);
-				return this.setState({teacher: res.data, logged: true})
+				this.setState({teacher: res.data.teacher,logged: true,status: res.status,showingMessage: true});
+				setTimeout(() => {
+					this.setState({showingMessage: false});
+				},2000);
+				alert('Successfully logged in');
 			})
-			.catch(err => console.log(err));
+			.catch(err => {
+				alert('Unable to login, user not found');
+			});
 	};
 
 	loginForm() {
@@ -65,13 +75,15 @@ class Login extends React.Component {
 			</div>
 		);
 	}
-	
+
 	render() {
-		// console.log(`${this.state.email} ${this.state.password}`);
-		return (
-			this.loginForm()
-		);
+		localStorage.setItem('loggedTeacher', JSON.stringify(this.state.teacher));
+		if(this.state.logged) {
+			return(<div> You're logged in as {this.state.teacher.name} {this.state.teacher.last}</div>)
+		}else {
+			return this.loginForm()
+		}
 	}
 }
 
-export default Login;
+export default (Login);

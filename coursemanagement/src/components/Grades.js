@@ -1,64 +1,94 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
-
-//component to display list of courses with their grades and presence
+import PresenceDetail from "./PresenceDetail";
+import Popup from "reactjs-popup";
+import '../styles/Grades.css';
+import GradesDetail from "./GradesDetail";
 
 class Grades extends React.Component {
 	state = {
 		courses: [],
-		students: []
+		students: [],
+		finalGrade: '',
+		isLogged: false
 	};
 
 	componentDidMount() {
-		// axios('http://localhost:3000/course/get',{
-		// 	method: 'get',
-		// 	headers: {
-		// 		"Content-Type": "application/json"
-		// 	}
-		// })
-		// 	.then(res => this.setState({courses: res.data}))
-		// 	.catch(err => console.log(err));
-		axios.get('http://localhost:3000/students/getAll')
-		     .then(res => this.setState({students: res.data}))
-		     .catch(err => console.log(err));
+		if(localStorage.length > 1) {
+			this.setState({isLogged: true});
+			axios.get('http://localhost:3000/students/getAll',{
+				     headers: {
+					     "Content-Type": "application/json",
+					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
+				     }
+			     })
+			     .then(res => {this.setState({students: res.data})})
+			     .catch(err => console.log(err));
+		}
 	}
-	showTableHeader = () => {
-		return (
-			<thead className="GradeTableHeader">
-				<tr className="GradeTableHeaderRow">
-					<th>Nazwa kursu</th>
-					<th>Data rozpoczęcia zajęć</th>
-					<th>Data kolejnych zajęć</th>
-					<th>Lista studentów</th>
-					<th>Wyświetl ocenę końcową</th>
-				</tr>
-			</thead>
-		);
-	};
 
 	showDate = (date) => {
 		const currentDate = new Date(date);
 		return (`${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`);
 	};
 
+	handleButtonClick = () => {
+		axios.patch('http://localhost:3000/course/updateTime')
+		     .then(res => console.log(res))
+		     .catch(err => console.log(err));
+	};
+
+	showTableHeader = () => {
+		return (
+			<thead className="GridTableHeader">
+				<tr className="GridTableChild">
+					<th>Nazwa kursu</th>
+					<th>Data rozpoczęcia zajęć</th>
+					<th style={{display: 'inline'}}>Data kolejnych zajęć
+						<button type="button" style={{ marginLeft: '10px'}} onClick={this.handleButtonClick}>Aktualizuj date</button></th>
+					<th>Student</th>
+					<th>Obecność</th>
+					<th>
+						Ocena końcowa
+					</th>
+					<th>
+						Oceny
+					</th>
+				</tr>
+			</thead>
+		);
+	};
+
 	showTableData = (students) => {
-		console.log(students);
 		return (
 			students.map((student,i) => {
-				console.log(student);
 				return (
-					<tbody key={i}>
-						<tr key={i}>
-							<td>{student.course.name}</td>
+					<tbody key={i} className="GridTableBody">
+						<tr key={i} className="GridTableChild">
+							<td><b>{student.course.name}</b></td>
 							<td>{moment(this.showDate(student.course.startingDate))
-								.format('D/MM/YYYY h:mm')}</td>
-							<td>{moment(this.showDate(student.course.nextClasses))
-								.format('D/MM/YYYY h:mm')}</td>
+								.format('DD/MM/YYYY h:mm a')}</td>
 							<td>
-								{student.name} {student.last}
+								{moment(this.showDate(student.course.nextClasses))
+									.format('DD/MM/YYYY h:mm a')}
 							</td>
-							<td>Ocena końcowa: button</td>
+							<td>
+								<b>{student.name} {student.last}</b>
+							</td>
+							<td>
+								<Popup modal trigger={<button className="buttonStyle">Pokaż obecność</button>}>
+									<PresenceDetail presenceArray={student.presences} courseDate={student.nextClasses}/>
+								</Popup>
+							</td>
+							<td>
+								{this.calculateFinalGrade(student)}
+							</td>
+							<td>
+								<Popup modal trigger={<button>Pokaż oceny</button>}>
+									<GradesDetail gradesArr={student.grades} weightsArr={student.weights}/>
+								</Popup>
+							</td>
 						</tr>
 					</tbody>
 				)
@@ -66,15 +96,45 @@ class Grades extends React.Component {
 		);
 	};
 
+	calculateFinalGrade = (students) => {
+		if(students.grades !== undefined && students.weights !== undefined && students.grades.length > 0 && students.weights.length > 0) {
+			const oceny = students.grades.map(grade => grade.grade);
+			const wagi = students.weights.map(weight => weight.weight);
+			let ocenaKoncowaLicznik = 0;
+			let ocenaKoncowaMianownik = 0;
+			let suma = 0;
+			for(let i = 0; i < oceny.length; ++i) {
+				ocenaKoncowaLicznik += oceny[i] * wagi[i];
+				ocenaKoncowaMianownik += wagi[i];
+				suma = ocenaKoncowaLicznik / ocenaKoncowaMianownik;
+			}
+			return Math.round(suma * 2) / 2;
+		} else {
+			return `${students.name} nie posiada ocen`;
+		}
+	};
+
 	render() {
-		return (
-			<div>
-				<table className="Grades table">
-					{this.showTableHeader()}
-					{this.showTableData(this.state.students)}
-				</table>
-			</div>
-		);
+		if(this.state.isLogged === true) {
+			if(this.state.students.length !== 0) {
+				this.calculateFinalGrade(this.state.students)
+			}
+			return (
+				<div className="background">
+					<table className="GridTableParent">
+						{this.showTableHeader()}
+						{this.showTableData(this.state.students)}
+					</table>
+				</div>
+			);
+		} else {
+			return (
+				<div style={{color: 'red'}}>
+					<span> Please login to continue!</span>
+				</div>
+			);
+		}
+
 	}
 }
 

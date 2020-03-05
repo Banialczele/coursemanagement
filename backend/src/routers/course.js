@@ -2,21 +2,21 @@ const Course = require('../models/courseModel');
 const express = require('express');
 const router = new express.Router();
 const authTeacher = require('../middleware/authTeacher');
+const Teacher = require('../models/teacherModel');
 const cron = require('node-cron');
 const moment = require('moment');
 
 //adding course
-router.post('/course/add',async(req,res) => {
-	console.log(...req.body.students);
+router.post('/course/add', authTeacher,async(req,res) => {
 	try {
+		console.log(req.teacher);
 		const course = await new Course({
 			...req.body,
 			startingDate: req.body.startingDate,
 			nextClasses: req.body.startingDate,
-			// owner: {
-			// 	name: req.teacher.name,
-			// 	email: req.teacher.email
-			// }
+			owner: {
+				_id: req.teacher._id
+			}
 		});
 
 		course.save();
@@ -28,10 +28,9 @@ router.post('/course/add',async(req,res) => {
 	}
 });
 
-//getting all courses add authTeacher
-router.get('/course/get',async(req,res) => {
+router.get('/course/getAll', authTeacher,async(req,res) => {
 	try {
-		const course = await Course.find({});
+		const course = await Course.find({owner: req.teacher._id}).populate('Student');
 		res.status(200)
 		   .send(course);
 	} catch(e) {
@@ -86,6 +85,7 @@ router.patch('/course/updateTime',async(req,res) => {
 					}
 				);
 			});
+			res.status(200).send();
 		});
 	} catch
 		(e) {

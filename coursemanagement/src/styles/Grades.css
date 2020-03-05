@@ -1,0 +1,33 @@
+.background {
+    background: darkcyan;
+    margin: 5px 0;
+}
+
+.GridTableHeader {
+    margin: 10px;
+}
+
+.GridTableParent {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+}
+
+.GridTableChild {
+    display: grid;
+    grid-template-columns: 250px 180px 300px 150px 250px 200px 200px;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.buttonStyle {
+    border: none;
+    background: none;
+    background: #1ec660;
+    padding: 5px 10px;
+}
+
+.buttonStyle:hover {
+    background: #697090;
+}

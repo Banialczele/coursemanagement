@@ -36,8 +36,10 @@ const teacherSchema = new mongoose.Schema({
 			}
 		}
 	},
-	// course: {
-	// },
+	course: {
+		type: mongoose.Schema.Types.Object,
+		ref: 'Course'
+	},
 	tokens: [
 		{
 			token: {
@@ -55,7 +57,8 @@ teacherSchema.methods.toJSON = function() {
 
 teacherSchema.methods.generateAuthToken = async function() {
 	const authToken = jwt.sign({
-		_id: this._id.toString()
+		_id: this._id.toString(),
+		exp: Math.floor(Date.now() / 1000)+(60 * 60)
 	},'supertoken');
 	this.tokens = this.tokens.concat({token: authToken});
 	await this.save();
@@ -66,7 +69,7 @@ teacherSchema.statics.findByCredentials = async(email,password) => {
 	//now we are looking for user by it's email, then we compare found user with provided password
 	const teacher = await Teacher.findOne({email});
 	if(!teacher) {
-		throw new Error('Student not found');
+		throw new Error('Teacher not found');
 	}
 	const isMatch = await bcrypt.compare(password,teacher.password);
 	if(!isMatch) {

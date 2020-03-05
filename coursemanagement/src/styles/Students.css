@@ -1,0 +1,16 @@
+.students {
+    text-align: center;
+    padding: 10px 10px 0 10px;
+    height: 110px;
+}
+
+.labelStyle {
+    width: 100px;
+    padding: 5px;
+}
+
+.students > input {
+    padding: 5px 5px;
+    margin: 2px;
+    border-radius: 3px;
+}

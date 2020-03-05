@@ -20,22 +20,20 @@ router.post('/teachers/login',async(req,res) => {
 		const teacher = await Teacher.findByCredentials(req.body.email,req.body.password);
 		const token = await teacher.generateAuthToken();
 		res.status(200)
-		   .send({
-			   teacher,
-			   token
-		   });
+		   .send({teacher, token});
 	} catch(e) {
-		console.log(e);
+		console.log(e.message);
+		res.status(401).send(e);
 	}
 });
 //logout teacher
 router.post('/teachers/logout',async(req,res) => {
 	try {
-		req.teacher.tokens = req.teacher.tokens.filter((token) => {
-			return token.token !== req.token;
-		});
+		const teacher = await Teacher.findById({_id: req.body.teacher._id});
+		teacher.tokens = [];
+		console.log(teacher);
 
-		await req.teacher.save();
+		await teacher.save();
 		res.status(200)
 		   .send();
 	} catch(e) {
@@ -61,17 +59,20 @@ router.get('/teachers/obtainAll',async(req,res) => {
 });
 
 router.get('/teachers/:id',async(req,res) => {
+	console.log(req.params.id);
 	try {
-		const teacher = await Teacher.findById(req.params.id);
-		if(!teacher) {
-			res.status(404)
-			   .send({message: 'None teacher found'});
-		}
-		res.status(200)
-		   .send(teacher);
+		const teacher = await Teacher.findById(req.params.id).populate('course');
+		console.log(teacher);
+		res.status(200).send(teacher);
+		// if(!teacher) {
+		// 	res.status(404)
+		// 	   .send({message: 'None teacher found'});
+		// }
+		// res.status(200)
+		//    .send(teacher);
 	} catch(error) {
 		res.status(500)
-		   .send(error);
+	.send(error);
 	}
 });
 

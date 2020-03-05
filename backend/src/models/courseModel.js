@@ -5,11 +5,10 @@ const courseSchema = new mongoose.Schema({
 		trim: true,
 		required: true
 	},
-	// owner: {
-	//
-	// 		name: String,
-	// 		email: String 
-	// },
+	owner: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Teacher'
+	},
 	startingDate: {
 		type: Date
 	},

@@ -3,12 +3,10 @@ const Teacher = require('../models/teacherModel');
 
 const authTeacher = async(req,res,next) => {
 	try {
-		const token = req.header('Authorization')
-		                 .replace('Bearer ','');
+		const token = req.headers.authorization.replace('Bearer ','');
 		const decoded = jwt.verify(token,'supertoken');
 		const teacher = await Teacher.findOne({_id: decoded._id,'tokens.token': token});
-
-		if(!teacher) {
+		if(!teacher || !token) {
 			throw new Error();
 		}
 		req.token = token;
@@ -17,7 +15,7 @@ const authTeacher = async(req,res,next) => {
 
 	} catch(error) {
 		res.status(401)
-		   .send({error: 'Please authenticate'});
+		   .send({error: 'Your session has expired'});
 	}
 
 };

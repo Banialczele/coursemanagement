@@ -1,4 +1,5 @@
 const Student = require('../models/studentModel');
+const Course = require('../models/courseModel');
 const express = require('express');
 const auth = require('../middleware/auth');
 const authTeacher = require('../middleware/authTeacher');
@@ -8,6 +9,7 @@ const router = new express.Router();
 router.post('/students/add',async(req,res) => {
 	const student = new Student({
 		...req.body,
+		teacher: req.body.teacher,
 		presences: [
 			{
 				presence: false,
@@ -56,10 +58,11 @@ router.post('/students/logout',auth,async(req,res) => {
 	}
 });
 
-router.get('/students/getAll',async(req,res) => {
+router.get('/students/getAll',authTeacher,async(req,res) => {
 	try {
-		const student = await Student.find({})
-		                             .populate('course');
+		//looking for students
+		const student = await Student.find({teacher: req.teacher._id}).populate('course');
+		console.log(student);
 		res.status(200)
 		   .send(student);
 	} catch(error) {
@@ -84,8 +87,7 @@ router.get('/students/:id',auth,async(req,res) => {
 });
 
 router.patch('/students/addGrade',async(req,res) => {
-	const updateStudents = req.body.grades.map(student => student);
-
+	const updateStudents = req.body.weights.map(student => student);
 	try {
 		updateStudents.map(async user => {
 			const student = await Student.find({email: user.owner});
@@ -113,9 +115,10 @@ router.patch('/students/addGrade',async(req,res) => {
 				                .catch(err => res.status(400)
 				                                 .send(err))
 			}
-			res.status(200)
-			   .send(user);
+
 		});
+		res.status(200)
+		   .send();
 
 	} catch(e) {
 		res.status(404)
@@ -125,35 +128,63 @@ router.patch('/students/addGrade',async(req,res) => {
 
 router.patch('/students/',async(req,res) => {
 	const updateArray = req.body.updateUsers.map(student => student);
+	const absents = req.body.absents.map(student => student);
 	const date = new Date();
+	//array of users which are not present on classes
+	// absents.map(async absentUser => {
+	// 	const student = await Student.find({email: absentUser.studentEmail});
+	// 	const checkDate = moment(absentUser.nextClasses)
+	// 		.isSame(date,'day');
+	// 	if(absentUser.presence === false && checkDate === true) {
+	// 		await student[0].update({
+	// 			$push: {
+	// 				presences: [
+	// 					{
+	// 						presence: false,
+	// 						date: absentUser.nextClasses
+	// 					}
+	// 				]
+	// 			}
+	// 		});
+	// 	}
+	// });
+	//array of users present during classes
+	console.log(updateArray);
 	updateArray.map(async user => {
 		const student = await Student.find({email: user.studentEmail});
 		const checkDate = moment(user.nextClasses)
 			.isSame(date,'day');
-		if(user.presence === true && student[0].presences.length === 1 && checkDate === true) {
-			await student[0].updateOne({
-				$set: {
-					presences: [
-						{
-							presence: true,
-							date: user.date
-						}
-					]
-				}
-			});
-		} else if(user.presence === true && student[0].presences.length > 1 && checkDate === true) {
-			await student[0].update({
-				$push: {
-					presences: [
-						{
-							presence: true,
-							date: user.date
-						}
-					]
-				}
-			},err => console.log(err));
+		//Check if first classes or some next in time.
+		const checkClassDate = moment(user.startingDate)
+			.isSame(user.nextClasses);
+		if(user.presence === true && checkDate === true) {
+			if(checkClassDate === true){
+				await student[0].update({
+					$set: {
+						presences: [
+							{
+								presence: true,
+								date: user.nextClasses
+							}
+						]
+					}
+				})
+			}else {
+				await student[0].update({
+					$push: {
+						presences: [
+							{
+								presence: true,
+								date: user.nextClasses
+							}
+						]
+					}
+				});
+			}
 		}
-	})
+	});
+	res.status(200)
+	   .send();
 });
 
 router.delete('/students/:id',auth,async(req,res) => {

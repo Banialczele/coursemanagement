@@ -4,10 +4,11 @@ import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 import '../styles/NavBar.css';
 import Login from "./Login";
 import Activity from "./Activity";
-import Presences from "./Presences";
 import Grades from "./Grades";
 import Logout from "./Logout";
 import AddCourse from "./AddCourse";
+import Entry from './Entry';
+import NewTeacher from './NewTeacher';
 
 function NavBar() {
 	return (
@@ -18,16 +19,16 @@ function NavBar() {
 						<li className="nav item"><Link to="/addCourse">Dodaj kurs</Link></li>
 						<li className="nav item"><Link to="/activity">Zajęcia</Link></li>
 						<li className="nav item"><Link to="/grades">Informacje</Link></li>
-						<li className="nav item"><Link to="/presences">Obecność</Link></li>
-						<li className="nav item"><Link to="/">Zaloguj</Link></li>
+						<li className="nav item"><Link to="/Login">Zaloguj</Link></li>
 						<li className="nav item"><Link to="/Logout">Wyloguj</Link></li>
 					</ul>
 				</nav>
-				<Route exact path="/" component={Login}/>
+				<Route exact path="/" component={Entry} />
+				<Route path="/Login" component={Login}/>
 				<Route path="/addCourse" component={AddCourse}/>
 				<Route path="/grades" component={Grades}/>
-				<Route exact path="/activity" component={Activity}/>
-				<Route path="/presences" component={Presences}/>
+				<Route path="/activity" component={Activity}/>
+				<Route path="/NewTeacher" component={NewTeacher}/>
 				<Route path="/Logout" component={Logout}/>
 			</div>
 		</Router>

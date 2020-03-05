@@ -1,0 +1,45 @@
+.addCourse {
+    height: 100%;
+    background: darkcyan;
+}
+.addCourseFormContainer {
+    text-align: center;
+    padding: 50px;
+    height: 100%;
+}
+
+.labelStyles {
+    background: aqua;
+    text-align: center;
+    padding: 8px;
+    margin: 25px;
+    border-radius: 5px;
+}
+
+.datePickerStyle {
+    margin: 15px;
+}
+
+form > input {
+    padding: 5px 5px;
+    margin: 20px;
+    border-radius: 3px;
+}
+
+.studentList {
+    margin-top: 15px;
+}
+
+.studentListColor {
+    background: aqua;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.buttons {
+    margin: 10px;
+}
+
+button {
+    margin-right: 5px;
+}

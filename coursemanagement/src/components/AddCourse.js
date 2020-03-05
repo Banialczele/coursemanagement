@@ -3,6 +3,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import StudentInputs from './StudentInputs';
+import '../styles/AddCourse.css';
 
 class AddCourse extends React.Component {
 	state = {
@@ -14,7 +15,20 @@ class AddCourse extends React.Component {
 				last: '',
 				email: '',
 			}
-		]
+		],
+		error: {
+			occurs: false,
+			message: ''
+		},
+		isLogged: false,
+		loggedTeacher: ''
+	};
+
+	componentDidMount() {
+		if(localStorage.length > 1) {
+			const teacher = localStorage.getItem('loggedTeacher');
+			this.setState({isLogged: true,loggedTeacher: teacher});
+		}
 	};
 
 	onNameChange = (e) => {
@@ -40,14 +54,17 @@ class AddCourse extends React.Component {
 					                 name: student.name,
 					                 last: student.last,
 					                 email: student.email,
-					                 course: res.data._id
+					                 course: res.data._id,
+					                 teacher: JSON.parse(this.state.loggedTeacher)._id
 				                 },{
 					                 headers: {
 						                 "Content-Type": "application/json"
 					                 }
 				                 })
-				                 .then(res => console.log(res))
-				                 .catch(err => console.log(err));
+				                 .then(res => alert('successfully added course and students!'))
+				                 .catch(err => {
+					                 alert(`${student.email} is already taken, please use another one.`);
+				                 });
 			     })
 		     })
 		     .catch(err => console.log(err));
@@ -75,29 +92,51 @@ class AddCourse extends React.Component {
 		}
 	};
 
-	render() {
+	addingCourseForm = () => {
 		return (
-			<div>
-				<form onSubmit={this.onFormSubmit} onChange={this.handleChange}>
-					<label>Nazwa kursu</label><br/>
-					<input type="text" onChange={this.onNameChange}/><br/><br/>
-					<DatePicker
-						selected={this.state.startDate}
-						onChange={date => this.setState({startDate: date})}
-						showTimeSelect
-						timeFormat="HH:mm"
-						timeIntervals={15}
-						timeCaption="time"
-						dateFormat="dd-MM-yyyy h:mm aa"
-					/><br/>
-					<label>Lista studentów </label>
-					<br/><br/>
-					<StudentInputs studentList={this.state.studentList}/>
-					<button type="button" onClick={this.addStudent}>Dodaj Studenta</button>
-					<input type="submit" value="Wyślij"/>
-				</form>
+			<div className="addCourse container">
+				<div className="addCourseFormContainer">
+					<form onSubmit={this.onFormSubmit} onChange={this.handleChange}>
+						<label className="labelStyles">Nazwa kursu</label><br/>
+						<input type="text" onChange={this.onNameChange}/><br/>
+						<label className="labelStyles">Data</label> <br/>
+						<DatePicker
+							className="datePickerStyle"
+							selected={this.state.startDate}
+							onChange={date => this.setState({startDate: date})}
+							showTimeSelect
+							timeFormat="HH:mm"
+							timeIntervals={15}
+							timeCaption="time"
+							dateFormat="dd-MM-yyyy h:mm aa"
+						/>
+						<br/>
+						<div className="studentList">
+							<label className="studentListColor">Lista studentów </label>
+						</div>
+						<br/>
+						<div className="studentListColor">
+							<StudentInputs studentList={this.state.studentList}/>
+						</div>
+						<div className="buttons">
+							<button type="button" onClick={this.addStudent}>Dodaj Studenta</button>
+							<input type="submit" value="Wyślij"/>
+						</div>
+					</form>
+				</div>
 			</div>
 		);
+	};
+
+	render() {
+		if(this.state.isLogged === true) {
+			console.log(JSON.parse(this.state.loggedTeacher));
+			return this.addingCourseForm();
+		} else {
+			return (
+				<div style={{color: 'red'}}>Please login to continue!</div>
+			);
+		}
 	}
 }
 

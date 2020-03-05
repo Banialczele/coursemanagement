@@ -3,26 +3,29 @@ import axios from 'axios';
 import '../styles/ActivityPresence.css';
 
 let updateUsers = [];
+let absents = [];
 
 class ActivityPresence extends React.Component {
 	state = {
 		studentData: this.props.studentData,
 		isChecked: false,
 		studentEmail: String,
-		presence: false
+		presence: false,
+		date: this.props.courseDate,
+		startingDate: this.props.startingClasses
 	};
 
-	retrieveStudentData = (students => students.map(student => {
+	retrieveStudentData = (students => students.map((student,i) => {
 		return (
 			<div className="student-Detail" key={student.email}>
 				<div className="studentName">{student.name}</div>
 				<div className="studentLast">{student.last}</div>
 				<div className="studentPresence">
 					<label htmlFor="obecny">Obecny
-						<input type="checkbox" name="obecny" id={student.email} onChange={this.handleCheckboxChange}/>
+						<input type="checkbox" value="obecny" name="obecny" onChange={(e) => this.handleChange(student,e)}/>
 					</label>
 					<label htmlFor="nieobecny">Nieobecny
-						<input type="checkbox" name="nieobecny" id={student.email} onChange={this.handleCheckboxChange}/>
+						<input type="checkbox" value="nieobecny" name="nieobecny" onChange={(e) => this.handleAbsentChange(student,e)}/>
 					</label>
 				</div>
 			</div>
@@ -45,32 +48,41 @@ class ActivityPresence extends React.Component {
 		);
 	});
 
-	handleCheckboxChange = (e) => {
-		if(e.target && e.target.name === 'obecny' && e.target.checked) {
-			this.setState({isChecked: true,studentEmail: e.target.id,presence: true});
-			updateUsers.push({studentEmail: e.target.id,presence: this.state.presence,"date": this.props.courseDate});
-			console.log(updateUsers);
-		} else if(e.target && e.target.name === 'nieobecny' && e.target.checked) {
-			this.setState({studentEmail: e.target.id,presence: false});
-			updateUsers.push({studentEmail: e.target.id,presence: this.state.presence,"date": this.props.courseDate});
-			updateUsers.map( () => {
-				const index = updateUsers.map(student => student.studentEmail).indexOf(e.target.id);
-				updateUsers.splice(index,1);
-				return updateUsers;
-			});
-			console.log(updateUsers);
+	handleAbsentChange = (student,e) => {
+		if(e.target.checked === true) {
+			this.setState({studentEmail: student.email,presence: false});
+			absents.push({studentEmail: student.email,presence: false,nextClasses: this.state.date, startingDate: this.state.startingDate});
+		} else if(e.target.checked === false) {
+			for(let i = 0; i < absents.length; i++) {
+				if(absents[i].studentEmail === student.email) {
+					absents.splice(absents[i],1);
+				}
+			}
 		}
 	};
 
+	handleChange = (student,e) => {
+		if(e.target.checked === true) {
+			this.setState({studentEmail: student.email,presence: true});
+			updateUsers.push({studentEmail: student.email,presence: true,nextClasses: this.state.date, startingDate: this.state.startingDate});
+		} else if(e.target.checked === false) {
+			for(let i = 0; i < updateUsers.length; i++) {
+				if(updateUsers[i].studentEmail === student.email) {
+					updateUsers.splice(updateUsers[i],1);
+				}
+			}
+		}
+	};
+
+
 	handleSubmit = (e) => {
 		e.preventDefault();
-		axios.patch('http://localhost:3001/students',{updateUsers})
-		     .then(res => console.log(res))
+		axios.patch('http://localhost:3001/students',{updateUsers, absents})
+		     .then(res => alert('Successfully updated student data'))
 		     .catch(err => console.log(err));
 	};
 
 	render() {
-		this.handleCheckboxChange(this.state.studentData);
 		return (
 			<div className="ActivityPresence">
 				{this.displayData()}

@@ -2,13 +2,17 @@ import React from 'react';
 import axios from 'axios';
 
 let grades = [];
+let weights = [];
 
 class AddGrade extends React.Component {
 	state = {
 		course: this.props.course,
+		date: this.props.courseDate,
 		grade: '',
-		weight: 'ustna',
-		email: ''
+		weight: '',
+		email: '',
+		weightValue: '',
+		status: ''
 	};
 
 	getStudentData = (course) => {
@@ -19,15 +23,34 @@ class AddGrade extends React.Component {
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-		grades.push({ 'owner': this.state.email, 'ocena': this.state.grade, 'waga': this.state.weight, 'date': this.state.course.nextClasses});
-		axios.patch('http://localhost:3000/students/addGrade',{grades})
-		     .then(res => console.log(res))
+		for(let i = 0; i < weights.length; i++) {
+			for(let k = 0; k < grades.length; k++) {
+				if(weights[i].owner === grades[i].owner) {
+					weights[i].ocena = grades[i].ocena;
+				}
+			}
+		}
+		axios.patch('http://localhost:3000/students/addGrade',{weights})
+		     .then(res => alert('successfully updated student data'))
 		     .catch(err => console.log(err));
+		weights = [];
 		grades = [];
 	};
 
-	handleChange = e => {
-		this.setState({[e.target.name]: e.target.value, email: e.target.id});
+	handleWeightChange = (student,e) => {
+		if(e.target.value) {
+			this.setState({weight: e.target.value});
+			weights.push({waga: e.target.value,owner: student.email, date: this.state.date});
+		}
+		console.log(weights);
+	};
+
+	handleGradeChange = (student,e) => {
+		if(e.target.value) {
+			this.setState({grade: e.target.value});
+			grades.push({ocena: e.target.value,owner: student.email});
+		}
+		console.log(grades);
 	};
 
 	renderStudentList = () => {
@@ -41,14 +64,17 @@ class AddGrade extends React.Component {
 					<tbody>
 						<tr>
 							<td>
-								{this.getStudentData(this.state.course)
-								     .map((student,i) => {
-									     return (
-										     <div key={i}>{student.name} {student.last}
-											     <form onSubmit={this.handleFormSubmit}>
+								<form onSubmit={this.handleFormSubmit}>
+									{this.getStudentData(this.state.course)
+									     .map((student,i) => {
+										     return (
+											     <div key={i}>{student.name} {student.last} <br/>
 												     <label htmlFor="weight">
 													     Forma sprawdzenia wiedzy:
-													     <select id={student.email} name="weight" onChange={this.handleChange}>
+													     <select name="weight"
+													             onChange={(e) => this.handleWeightChange(student,e)}
+													     >
+														     <option value=""></option>
 														     <option value="ustna">Odpowiedź</option>
 														     <option value="wejsciowka">Wejściówka</option>
 														     <option value="kolokwium">Kolokwium</option>
@@ -56,19 +82,21 @@ class AddGrade extends React.Component {
 												     </label>
 												     <label htmlFor="grade">
 													     Ocena:
-													     <input type="number"
-													            step="0.1"
-													            min="2"
-													            max="5"
-													            name="grade"
-													            id={student.email}
-													            onChange={this.handleChange}/>
+													     <select name="grade" onChange={(e) => this.handleGradeChange(student,e)}>
+														     <option value=""></option>
+														     <option value="2">2</option>
+														     <option value="3">3</option>
+														     <option value="3.5">3.5</option>
+														     <option value="4">4</option>
+														     <option value="4.5">4.5</option>
+														     <option value="5">5</option>
+													     </select>
 												     </label>
-												     <input type="submit" value="Zapisz"/>
-											     </form>
-										     </div>
-									     )
-								     })}
+											     </div>
+										     )
+									     })}
+									<input type="submit" value="Zapisz"/>
+								</form>
 							</td>
 						</tr>
 					</tbody>

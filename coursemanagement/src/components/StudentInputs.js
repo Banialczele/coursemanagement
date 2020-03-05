@@ -1,12 +1,13 @@
 import React from 'react';
+import '../styles/Students.css';
 
 const StudentInputs = props => {
 	return (
 		props.studentList.map((val,idx) => {
 			let studentId = `student${idx}`,studentLast = `last${idx}`,studentEmail = '';
 			return (
-				<div key={idx}>
-					<label htmlFor={studentId}>{`Imie studenta #${idx+1}`}</label>
+				<div className="students" key={idx}>
+					<label className="labelStyle" htmlFor={studentId}>{`Imie studenta #${idx+1}`}</label>
 					<input
 						type="text"
 						name={studentId}
@@ -14,7 +15,7 @@ const StudentInputs = props => {
 						id={studentId}
 						className="name"
 					/> <br/>
-					<label htmlFor={studentLast}>Nazwisko</label>
+					<label className="labelStyle" htmlFor={studentLast}>Nazwisko</label>
 					<input
 						type="text"
 						name={studentLast}
@@ -22,7 +23,7 @@ const StudentInputs = props => {
 						id={studentLast}
 						className="last"
 					/> <br/>
-					<label htmlFor={studentEmail}>Email</label>
+					<label className="labelStyle" htmlFor={studentEmail}>Email</label>
 					<input
 						type="text"
 						name={studentEmail}

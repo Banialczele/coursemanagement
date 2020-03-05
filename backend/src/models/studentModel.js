@@ -38,7 +38,7 @@ const studentSchema = new mongoose.Schema({
 		}
 	],
 	course: {
-		type: mongoose.Schema.Types.Object,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Course'
 	},
 	grades: [
@@ -57,7 +57,11 @@ const studentSchema = new mongoose.Schema({
 			name: String,
 			date: Date
 		}
-	]
+	],
+	teacher: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Teacher'
+	}
 });
 
 studentSchema.methods.toJSON = function() {
