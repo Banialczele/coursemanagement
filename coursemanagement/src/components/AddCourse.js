@@ -134,6 +134,8 @@ class AddCourse extends React.Component {
 	};
 
 	render() {
+		console.log(this.state.isLogged);
+		console.log(localStorage);
 		if(this.state.isLogged === true) {
 			return this.addingCourseForm();
 		} else if(this.state.isLogged === false){

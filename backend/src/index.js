@@ -6,9 +6,6 @@ const cron = require('node-cron');
 const studentRouter = require('./routers/student');
 const courseRouter = require('./routers/course');           
 const teacherRouter = require('./routers/teacher');
-cron.schedule("00 21 13 * * *",function() {
-	console.log('Siemanko z tej strony cron co minute');
-});
 
 const app = express();
 app.use(cors());

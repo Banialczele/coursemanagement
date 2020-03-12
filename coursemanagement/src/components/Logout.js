@@ -9,7 +9,9 @@ const Logout = () => {
 		axios.post('http://localhost:3000/teachers/logout',{
 			     teacher: loggedTeacher
 		     })
-		     .then(res => localStorage.clear())
+		     .then(res => {
+		     	return localStorage.clear();
+		     })
 		     .catch(err => console.log(err));
 		history.push('/');
 	};
