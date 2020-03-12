@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import '../styles/AddGrade.css';
+
 let grades = [];
 let weights = [];
 
@@ -40,7 +42,7 @@ class AddGrade extends React.Component {
 	handleWeightChange = (student,e) => {
 		if(e.target.value) {
 			this.setState({weight: e.target.value});
-			weights.push({waga: e.target.value,owner: student.email, date: this.state.date});
+			weights.push({waga: e.target.value,owner: student.email,date: this.state.date});
 		}
 		console.log(weights);
 	};
@@ -56,58 +58,51 @@ class AddGrade extends React.Component {
 	renderStudentList = () => {
 		return (
 			<div>
-				<table>
-					<thead>
-						<tr>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<form onSubmit={this.handleFormSubmit}>
-									{this.getStudentData(this.state.course)
-									     .map((student,i) => {
-										     return (
-											     <div key={i}>{student.name} {student.last} <br/>
-												     <label htmlFor="weight">
-													     Forma sprawdzenia wiedzy:
-													     <select name="weight"
-													             onChange={(e) => this.handleWeightChange(student,e)}
-													     >
-														     <option value=""></option>
-														     <option value="ustna">Odpowiedź</option>
-														     <option value="wejsciowka">Wejściówka</option>
-														     <option value="kolokwium">Kolokwium</option>
-													     </select>
-												     </label>
-												     <label htmlFor="grade">
-													     Ocena:
-													     <select name="grade" onChange={(e) => this.handleGradeChange(student,e)}>
-														     <option value=""></option>
-														     <option value="2">2</option>
-														     <option value="3">3</option>
-														     <option value="3.5">3.5</option>
-														     <option value="4">4</option>
-														     <option value="4.5">4.5</option>
-														     <option value="5">5</option>
-													     </select>
-												     </label>
-											     </div>
-										     )
-									     })}
-									<input type="submit" value="Zapisz"/>
-								</form>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<form onSubmit={this.handleFormSubmit} className="addGradeForm">
+					{this.getStudentData(this.state.course)
+					     .map((student,i) => {
+						     return (
+							     <div className="addGradeGridContainer">
+								     <div className="addGradeGridHeader">
+									     <div>Imie Nazwisko</div>
+									     <div>Forma wiedzy</div>
+									     <div>Ocena</div>
+								     </div>
+								     <div key={i} className="studentGridContainer">{student.name} {student.last}<br/>
+									     <label htmlFor="weight" >
+										     <select name="weight"
+										             onChange={(e) => this.handleWeightChange(student,e)}
+										     >
+											     <option value=""></option>
+											     <option value="ustna">Odpowiedź</option>
+											     <option value="wejsciowka">Wejściówka</option>
+											     <option value="kolokwium">Kolokwium</option>
+										     </select>
+									     </label>
+									     <label htmlFor="grade">
+										     <select name="grade" onChange={(e) => this.handleGradeChange(student,e)}>
+											     <option value=""></option>
+											     <option value="2">2</option>
+											     <option value="3">3</option>
+											     <option value="3.5">3.5</option>
+											     <option value="4">4</option>
+											     <option value="4.5">4.5</option>
+											     <option value="5">5</option>
+										     </select>
+									     </label>
+								     </div>
+							     </div>
+						     )
+					     })}
+					<input type="submit" value="Zapisz" className="addGradeButton"/>
+				</form>
 			</div>
 		);
 	};
 
 	render() {
 		return (
-			<div>
+			<div className="addGradeContainer">
 				{this.renderStudentList()}
 			</div>
 		);

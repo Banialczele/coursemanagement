@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"
 import StudentInputs from './StudentInputs';
+import "react-datepicker/dist/react-datepicker.css"
 import '../styles/AddCourse.css';
 
 class AddCourse extends React.Component {
@@ -49,6 +49,7 @@ class AddCourse extends React.Component {
 			     }
 		     })
 		     .then(res => {
+		     	console.log(this.state.studentList);
 			     this.state.studentList.map(student => {
 				     return axios.post('http://localhost:3000/students/add',{
 					                 name: student.name,
@@ -79,6 +80,9 @@ class AddCourse extends React.Component {
 
 	//checking if user passed necessary data
 	handleChange = e => {
+		console.log(e.target.className);
+		console.log(e.target.name);
+		console.log(e.target.value);
 		//checking if passing values with names of "name" and "last" and "email"
 		if(["name","last","email"].includes(e.target.className)) {
 			//making copy of our studentList array
@@ -94,11 +98,13 @@ class AddCourse extends React.Component {
 
 	addingCourseForm = () => {
 		return (
-			<div className="addCourse container">
-				<div className="addCourseFormContainer">
+			<div className="addCourseContainer">
+				<div className="addCourseForm">
 					<form onSubmit={this.onFormSubmit} onChange={this.handleChange}>
-						<label className="labelStyles">Nazwa kursu</label><br/>
-						<input type="text" onChange={this.onNameChange}/><br/>
+						<div className="labelContainer">
+							<label className="labelStyles">Nazwa kursu</label><br/>
+							<input type="text" onChange={this.onNameChange}/><br/>
+						</div>
 						<label className="labelStyles">Data</label> <br/>
 						<DatePicker
 							className="datePickerStyle"
@@ -112,15 +118,14 @@ class AddCourse extends React.Component {
 						/>
 						<br/>
 						<div className="studentList">
-							<label className="studentListColor">Lista studentów </label>
+							<label className="labelStyles">Lista studentów </label>
+							<div className="studentListComponent">
+								<StudentInputs studentList={this.state.studentList}/>
+							</div>
 						</div>
-						<br/>
-						<div className="studentListColor">
-							<StudentInputs studentList={this.state.studentList}/>
-						</div>
-						<div className="buttons">
-							<button type="button" onClick={this.addStudent}>Dodaj Studenta</button>
-							<input type="submit" value="Wyślij"/>
+						<div className="elo">
+							<button type="button" onClick={this.addStudent} className="addStudentButton">Dodaj Studenta</button>
+							<input type="submit" value="Wyślij" className="addStudentButton"/>
 						</div>
 					</form>
 				</div>
@@ -130,9 +135,8 @@ class AddCourse extends React.Component {
 
 	render() {
 		if(this.state.isLogged === true) {
-			console.log(JSON.parse(this.state.loggedTeacher));
 			return this.addingCourseForm();
-		} else {
+		} else if(this.state.isLogged === false){
 			return (
 				<div style={{color: 'red'}}>Please login to continue!</div>
 			);

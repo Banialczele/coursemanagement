@@ -1,0 +1,29 @@
+.gradeDetailContainer {
+    background: black;
+    width: 100%;
+}
+
+.headerWidth {
+    width: inherit;
+}
+
+.headerGradeContainer {
+    margin: 0 auto;
+    display: grid;
+    width: 98%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid white;
+    padding: 5px;
+}
+
+.showAsGrid {
+    display: grid;
+    margin: 0 auto;
+    width: 98%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+}

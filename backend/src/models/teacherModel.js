@@ -57,8 +57,7 @@ teacherSchema.methods.toJSON = function() {
 
 teacherSchema.methods.generateAuthToken = async function() {
 	const authToken = jwt.sign({
-		_id: this._id.toString(),
-		exp: Math.floor(Date.now() / 1000)+(60 * 60)
+		_id: this._id.toString()
 	},'supertoken');
 	this.tokens = this.tokens.concat({token: authToken});
 	await this.save();

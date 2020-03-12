@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from "moment";
+import '../styles/GradesDetail.css';
 
 class GradesDetail extends React.Component {
 	state = {
@@ -8,45 +9,44 @@ class GradesDetail extends React.Component {
 	};
 
 	componentDidMount() {
-	   	for(let i=0;i<this.props.weightsArr.length; i++){
-	   		this.props.weightsArr[i].grade = this.state.grades[i].grade;
-	   		this.setState({weights: this.props.weightsArr})
-	    }
+		for(let i = 0; i < this.props.weightsArr.length; i++) {
+			this.props.weightsArr[i].grade = this.state.grades[i].grade;
+			this.setState({weights: this.props.weightsArr})
+		}
 	}
 
-	showTableHeader = () => {
-		return (
-			<thead>
-				<tr>
-					<th>Forma sprawdzenia wiedzy</th>
-					<th>Waga oceny</th>
-					<th>Data otrzymania oceny</th>
-					<th>Ocena</th>
-				</tr>
-			</thead>
-		);
-	};
 
 	showTableData = (grades) => {
 		return grades.map((grade,i) => {
 			return (
-				<tbody key={i}>
-					<tr key={i}>
-						<td>
-							{grade.name}
-						</td>
-						<td>
-							{grade.weight}
-						</td>
-						<td>
-							{moment(grade.date).format('DD/MM/YYYY h:mm a')}
-						</td>
-						<td>
-							{grade.grade}
-						</td>
+				<table className="gradeTableContainer">
+					<thead className="headerWidth">
+						<tr className="headerGradeContainer">
+							<th>Forma sprawdzenia wiedzy</th>
+							<th>Waga oceny</th>
+							<th>Data otrzymania oceny</th>
+							<th>Ocena</th>
+						</tr>
+					</thead>
+					<tbody key={i}>
+						<tr key={i} className="showAsGrid">
+							<td>
+								{grade.name}
+							</td>
+							<td>
+								{grade.weight}
+							</td>
+							<td>
+								{moment(grade.date)
+									.format('DD/MM/YYYY h:mm a')}
+							</td>
+							<td>
+								{grade.grade}
+							</td>
 
-					</tr>
-				</tbody>
+						</tr>
+					</tbody>
+				</table>
 			);
 		})
 	};
@@ -55,11 +55,8 @@ class GradesDetail extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<table>
-					{this.showTableHeader()}
-					{this.showTableData(this.state.weights)}
-				</table>
+			<div className="gradeDetailContainer">
+				{this.showTableData(this.state.weights)}
 			</div>
 		);
 	}

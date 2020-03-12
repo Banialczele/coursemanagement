@@ -1,0 +1,14 @@
+.PresenceDetailContainer{
+    background: black;
+}
+
+.tableContainer {
+    margin: 0 auto;
+    width: 25vw;
+    text-align: center;
+    padding: 15px;
+}
+
+.tableContainer thead tr td{
+    border: 1px solid white;
+}

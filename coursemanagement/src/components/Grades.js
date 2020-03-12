@@ -35,7 +35,7 @@ class Grades extends React.Component {
 
 	handleButtonClick = () => {
 		axios.patch('http://localhost:3000/course/updateTime')
-		     .then(res => console.log(res))
+		     .then(res => res)
 		     .catch(err => console.log(err));
 	};
 
@@ -46,7 +46,7 @@ class Grades extends React.Component {
 					<th>Nazwa kursu</th>
 					<th>Data rozpoczęcia zajęć</th>
 					<th style={{display: 'inline'}}>Data kolejnych zajęć
-						<button type="button" style={{ marginLeft: '10px'}} onClick={this.handleButtonClick}>Aktualizuj date</button></th>
+						<button type="button" className="buttonStyle" onClick={this.handleButtonClick}>Aktualizuj date</button></th>
 					<th>Student</th>
 					<th>Obecność</th>
 					<th>
@@ -85,7 +85,7 @@ class Grades extends React.Component {
 								{this.calculateFinalGrade(student)}
 							</td>
 							<td>
-								<Popup modal trigger={<button>Pokaż oceny</button>}>
+								<Popup modal trigger={<button className="buttonStyle">Pokaż oceny</button>}>
 									<GradesDetail gradesArr={student.grades} weightsArr={student.weights}/>
 								</Popup>
 							</td>

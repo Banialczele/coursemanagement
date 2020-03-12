@@ -17,15 +17,23 @@ class ActivityPresence extends React.Component {
 
 	retrieveStudentData = (students => students.map((student,i) => {
 		return (
-			<div className="student-Detail" key={student.email}>
+			<div className="studentDetail" key={student.email}>
 				<div className="studentName">{student.name}</div>
 				<div className="studentLast">{student.last}</div>
 				<div className="studentPresence">
 					<label htmlFor="obecny">Obecny
-						<input type="checkbox" value="obecny" name="obecny" onChange={(e) => this.handleChange(student,e)}/>
+						<input type="checkbox"
+						       value="obecny"
+						       name="obecny"
+						       onChange={(e) => this.handleChange(student,e)}
+						/>
 					</label>
 					<label htmlFor="nieobecny">Nieobecny
-						<input type="checkbox" value="nieobecny" name="nieobecny" onChange={(e) => this.handleAbsentChange(student,e)}/>
+						<input type="checkbox"
+						       value="nieobecny"
+						       name="nieobecny"
+						       onChange={(e) => this.handleAbsentChange(student,e)}
+						/>
 					</label>
 				</div>
 			</div>
@@ -40,9 +48,9 @@ class ActivityPresence extends React.Component {
 					<div className="data-last"><b>NAZWISKO</b></div>
 					<div className="data-presence"><b>OBECNOŚĆ</b></div>
 				</div>
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handleSubmit} className="presenceForm">
 					{this.retrieveStudentData(this.props.studentData)}
-					<input type="submit" value="Zapisz"/>
+					<input type="submit" value="Zapisz" className="presenceButton"/>
 				</form>
 			</div>
 		);
@@ -51,7 +59,7 @@ class ActivityPresence extends React.Component {
 	handleAbsentChange = (student,e) => {
 		if(e.target.checked === true) {
 			this.setState({studentEmail: student.email,presence: false});
-			absents.push({studentEmail: student.email,presence: false,nextClasses: this.state.date, startingDate: this.state.startingDate});
+			absents.push({studentEmail: student.email,presence: false,nextClasses: this.state.date,startingDate: this.state.startingDate});
 		} else if(e.target.checked === false) {
 			for(let i = 0; i < absents.length; i++) {
 				if(absents[i].studentEmail === student.email) {
@@ -64,7 +72,7 @@ class ActivityPresence extends React.Component {
 	handleChange = (student,e) => {
 		if(e.target.checked === true) {
 			this.setState({studentEmail: student.email,presence: true});
-			updateUsers.push({studentEmail: student.email,presence: true,nextClasses: this.state.date, startingDate: this.state.startingDate});
+			updateUsers.push({studentEmail: student.email,presence: true,nextClasses: this.state.date,startingDate: this.state.startingDate});
 		} else if(e.target.checked === false) {
 			for(let i = 0; i < updateUsers.length; i++) {
 				if(updateUsers[i].studentEmail === student.email) {
@@ -74,10 +82,9 @@ class ActivityPresence extends React.Component {
 		}
 	};
 
-
 	handleSubmit = (e) => {
 		e.preventDefault();
-		axios.patch('http://localhost:3001/students',{updateUsers, absents})
+		axios.patch('http://localhost:3001/students',{updateUsers,absents})
 		     .then(res => alert('Successfully updated student data'))
 		     .catch(err => console.log(err));
 	};

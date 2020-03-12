@@ -7,7 +7,7 @@ const cron = require('node-cron');
 const moment = require('moment');
 
 //adding course
-router.post('/course/add', authTeacher,async(req,res) => {
+router.post('/course/add',authTeacher,async(req,res) => {
 	try {
 		console.log(req.teacher);
 		const course = await new Course({
@@ -28,9 +28,10 @@ router.post('/course/add', authTeacher,async(req,res) => {
 	}
 });
 
-router.get('/course/getAll', authTeacher,async(req,res) => {
+router.get('/course/getAll',authTeacher,async(req,res) => {
 	try {
-		const course = await Course.find({owner: req.teacher._id}).populate('Student');
+		const course = await Course.find({owner: req.teacher._id})
+		                           .populate('Student');
 		res.status(200)
 		   .send(course);
 	} catch(e) {
@@ -67,6 +68,7 @@ router.delete('/course/delete/:id',async(req,res) => {
 
 
 router.patch('/course/updateTime',async(req,res) => {
+
 	try {
 		const addDays = (date,days) => {
 			const result = new Date(date);
@@ -85,10 +87,12 @@ router.patch('/course/updateTime',async(req,res) => {
 					}
 				);
 			});
+
+			
 			res.status(200).send();
+
 		});
-	} catch
-		(e) {
+	} catch (e) {
 		console.log(e);
 	}
 })

@@ -47,17 +47,17 @@ class Activity extends React.Component {
 		if(courses.length !== 0) {
 			return courses.map((course,index) => {
 				return (
-					<div className="grid-item" key={index}>
-						Nazwa kursu {course.name}
+					<div className="gridContainer" key={index}>
+						Kurs: {course.name}
 						<div className="grid-item">
 							<Popup
 								modal
-								trigger={<button type="button" value="Sprawdź obecność">Sprawdź obecność</button>}>
+								trigger={<button type="button" value="Sprawdź obecność" className="activityButton">Sprawdź obecność</button>}>
 								<ActivityPresence startingClasses={course.startingDate} courseDate={course.nextClasses} studentData={course.students}/>
 							</Popup>
 						</div>
 						<div>
-							<Popup modal trigger={<button>Dodaj ocene</button>}>
+							<Popup modal trigger={<button className="activityButton">Dodaj ocene</button>}>
 								<AddGrade courseDate={course.nextClasses} course={course}/>
 							</Popup>
 						</div>
@@ -76,7 +76,7 @@ class Activity extends React.Component {
 			return (
 				<div className="Activity-container">
 					<div className="Activity-child">
-						<div className="grid-container">
+						<div className="grid">
 							{this.showDailyClasses()}
 						</div>
 					</div>

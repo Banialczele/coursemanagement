@@ -1,4 +1,5 @@
 import React from 'react';
+
 import '../styles/Students.css';
 
 const StudentInputs = props => {
@@ -7,23 +8,29 @@ const StudentInputs = props => {
 			let studentId = `student${idx}`,studentLast = `last${idx}`,studentEmail = '';
 			return (
 				<div className="students" key={idx}>
-					<label className="labelStyle" htmlFor={studentId}>{`Imie studenta #${idx+1}`}</label>
+					<label className="studentLabel" htmlFor={studentId}>{`Imie studenta #${idx+1}`}</label>
+					<div className="studentInput">
 					<input
 						type="text"
 						name={studentId}
 						data-id={idx}
 						id={studentId}
 						className="name"
-					/> <br/>
-					<label className="labelStyle" htmlFor={studentLast}>Nazwisko</label>
+					/>
+					</div><br/>
+					<label className="studentLabel" htmlFor={studentLast}>Nazwisko</label>
+					<div className="studentInput">
 					<input
 						type="text"
 						name={studentLast}
 						data-id={idx}
 						id={studentLast}
 						className="last"
-					/> <br/>
-					<label className="labelStyle" htmlFor={studentEmail}>Email</label>
+					/>
+					</div>
+					<br/>
+					<label className="studentLabel" htmlFor={studentEmail}>Email</label>
+					<div className="studentInput">
 					<input
 						type="text"
 						name={studentEmail}
@@ -31,6 +38,7 @@ const StudentInputs = props => {
 						id={studentEmail}
 						className="email"
 					/>
+					</div>
 					<br/><br/>
 				</div>
 			);

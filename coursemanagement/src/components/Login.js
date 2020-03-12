@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from "axios";
 
+import '../styles/Login.css';
+
 const DoLogin = async(email,password) => {
 	const loginTeacher = await axios.post(
 		'http://localhost:3000/teachers/login',{
-		email,
-		password
-	});
+			email,
+			password
+		});
 	return loginTeacher;
 };
 
@@ -50,37 +52,48 @@ class Login extends React.Component {
 
 	loginForm() {
 		return (
-			<div className="Login form">
-				<form onSubmit={this.onSubmit}>
-					<label htmlFor="email">
-						Email:
-						<input
-							type="text"
-							name="email"
-							value={this.state.email}
-							onChange={this.onEmailChange}
-						/>
-					</label><br/>
-					<label htmlFor="password">
-						Hasło:
-						<input
-							type="password"
-							name="password"
-							value={this.state.password}
-							onChange={this.onPassChange}
-						/>
-					</label><br/>
-					<input type="submit" value="Zaloguj"/>
-				</form>
+			<div className="loginContainer">
+				<div className="loginForm">
+					<form onSubmit={this.onSubmit}>
+						<div className="labelInput">
+							<label htmlFor="email" className="labelElement">
+								Email:
+							</label>
+							<input
+								type="text"
+								name="email"
+								value={this.state.email}
+								onChange={this.onEmailChange}
+								className="inputElement"
+							/>
+						</div>
+						<br/>
+						<div className="labelInput">
+							<label htmlFor="password" className="labelElement">
+							Hasło:
+						</label>
+							<input
+								type="password"
+								name="password"
+								value={this.state.password}
+								onChange={this.onPassChange}
+								className="inputElement"
+							/>
+						</div>
+						<br/>
+						<div style={{ clear: "both"}}></div>
+						<input type="submit" className="button" value="Zaloguj"/>
+					</form>
+				</div>
 			</div>
 		);
 	}
 
 	render() {
-		localStorage.setItem('loggedTeacher', JSON.stringify(this.state.teacher));
+		localStorage.setItem('loggedTeacher',JSON.stringify(this.state.teacher));
 		if(this.state.logged) {
-			return(<div> You're logged in as {this.state.teacher.name} {this.state.teacher.last}</div>)
-		}else {
+			return (<div className="loginContainer"> You're logged in as {this.state.teacher.name} {this.state.teacher.last}</div>)
+		} else {
 			return this.loginForm()
 		}
 	}

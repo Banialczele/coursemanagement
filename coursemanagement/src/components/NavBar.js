@@ -13,7 +13,7 @@ import NewTeacher from './NewTeacher';
 function NavBar() {
 	return (
 		<Router>
-			<div className="wrapper">
+			<div className="wrapper" style={{color: "white"}}>
 				<nav className="flex-nav NavBar">
 					<ul className="container">
 						<li className="nav item"><Link to="/addCourse">Dodaj kurs</Link></li>
@@ -23,7 +23,7 @@ function NavBar() {
 						<li className="nav item"><Link to="/Logout">Wyloguj</Link></li>
 					</ul>
 				</nav>
-				<Route exact path="/" component={Entry} />
+				<Route exact path="/" component={Entry}/>
 				<Route path="/Login" component={Login}/>
 				<Route path="/addCourse" component={AddCourse}/>
 				<Route path="/grades" component={Grades}/>

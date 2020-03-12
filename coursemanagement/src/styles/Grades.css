@@ -1,33 +1,38 @@
 .background {
-    background: darkcyan;
-    margin: 5px 0;
+    background: rgb(38, 121, 255);
+    margin: 5px auto;
+    width: 95vw;
 }
 
 .GridTableHeader {
-    margin: 10px;
+    margin: 5px;
 }
 
 .GridTableParent {
     display: grid;
     justify-items: center;
     gap: 5px;
+    margin-bottom: 15px;
 }
 
 .GridTableChild {
     display: grid;
-    grid-template-columns: 250px 180px 300px 150px 250px 200px 200px;
+    grid-template-columns: 250px 180px 200px 300px 250px 200px 200px;
     justify-items: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .buttonStyle {
+    background: white;
     border: none;
-    background: none;
-    background: #1ec660;
-    padding: 5px 10px;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition-duration: 0.5s;
 }
 
 .buttonStyle:hover {
-    background: #697090;
+    background: rgba(0,0,255, 0.3);
+    letter-spacing: 2px;
 }
