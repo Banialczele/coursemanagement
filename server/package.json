@@ -18,11 +18,7 @@
   "devDependencies": {
     "concurrently": "^5.1.0"
   },
-  "scripts": {
-    "client": "cd ../client && npm start",
-    "server": "cd src && node index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
+
   "author": "",
   "license": "ISC"
 }
