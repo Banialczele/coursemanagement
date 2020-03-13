@@ -19,8 +19,9 @@
     "concurrently": "^5.1.0"
   },
   "scripts": {
-    "start": " cd ../client/src npm start",
-    "dev": "(cd src && node index.js) & npm run start"
+    "client": "cd ../client && npm start",
+    "server": "cd src && node index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC"
