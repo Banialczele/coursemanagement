@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/teacher-course-app',{
+mongoose.connect('mongodb://localhost/teacher-course-app',{
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true,

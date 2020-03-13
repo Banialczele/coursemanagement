@@ -2,10 +2,10 @@
   "name": "teachercourseapp",
   "version": "1.0.0",
   "description": "",
-  "main": "/backend/src/index.js",
+  "main": "/server/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ../../../coursemanagement/src && npm start",
+    "client": "cd ../../../client/src && npm start",
     "server": "cd .. && node index.js",
     "dev": "../../node_modules/.bin/concurrently \\\"npm run server\\\" \\\"npm run client\\\"",
     "start": "npm run dev"
