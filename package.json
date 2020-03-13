@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ../client && npm start",
-    "server": "cd src && node index.js",
-    "start": "concurrently \"npm run server\" \"npm run client\""
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Banialczele/coursemanagement.git"
