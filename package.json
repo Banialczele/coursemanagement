@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Banialczele/coursemanagement/issues"
   },
-  "homepage": "https://github.com/Banialczele/coursemanagement#readme"
+  "homepage": "https://github.com/Banialczele/coursemanagement#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
 }
