@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/teacher-course-app',{
+mongoose.connect('process.env.MONGODB_URI',{
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true,
