@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://managingcourses.herokuapp.com:27017/teacher-course-app',{
+mongoose.connect('mongodb+srv://admin:admin@coursemanagement-vndhb.mongodb.net/test?retryWrites=true&w=majority',{
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true,
