@@ -18,10 +18,10 @@
     "url": "https://github.com/Banialczele/coursemanagement/issues"
   },
   "homepage": "https://github.com/Banialczele/coursemanagement#readme",
-  "devDependencies": {
-    "concurrently": "^5.1.0"
-  },
   "engines": {
     "node": "12.x"
+  },
+  "dependencies": {
+    "concurrently": "^5.1.0"
   }
 }
