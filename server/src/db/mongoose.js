@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const databasestring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:127.0.0.1/teacher-course-app';
-mongoose.connect(databasestring,{
+mongoose.connect('mongodb://managingcourses.herokuapp.com:27017/teacher-course-app',{
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true,
