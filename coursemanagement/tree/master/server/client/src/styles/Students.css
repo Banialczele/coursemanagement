@@ -1,0 +1,25 @@
+.students {
+    margin: 15px 0;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    height: 180px;
+    width: auto;
+}
+
+.studentLabel {
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 6vw;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+.studentInput {
+    display: inline-block;
+    float: left;
+    padding: 5px 0;
+    width: 40%;
+    border-radius: 5px;
+}

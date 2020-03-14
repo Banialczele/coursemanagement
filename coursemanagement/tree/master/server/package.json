@@ -1,0 +1,44 @@
+{
+  "name": "teachercourseapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client/src && npm start",
+    "server": "cd server/src && node index.js",
+    "start": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Banialczele/coursemanagement.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Banialczele/coursemanagement/issues"
+  },
+  "homepage": "https://github.com/Banialczele/coursemanagement#readme",
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.4",
+    "node-cron": "^2.0.3",
+    "react": "^16.13.0",
+    "react-datepicker": "^2.14.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.4.0",
+    "reactjs-popup": "^1.5.0",
+    "validator": "^12.2.0"
+  }
+}

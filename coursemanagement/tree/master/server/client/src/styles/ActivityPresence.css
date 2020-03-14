@@ -1,0 +1,43 @@
+.studentContainer {
+    padding: 25px;
+    background: black;
+}
+
+.student-Data {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    border: 1px solid white;
+    padding: 10px;
+    margin-bottom: 1px;
+}
+
+.presenceForm {
+    margin: 0 auto;
+    width: 47vw;
+}
+
+.studentDetail {
+    background: rgb(38, 121, 255);
+    margin: 10px 0;
+    padding: 15px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.presenceButton {
+    background: rgb(38, 121, 255);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition-duration: 0.5s;
+}
+
+.presenceButton:hover {
+    background: rgba(38, 121, 255, 0.6);
+    letter-spacing: 2px;
+}
