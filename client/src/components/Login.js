@@ -5,7 +5,7 @@ import '../styles/Login.css';
 
 const DoLogin = async(email,password) => {
 	const loginTeacher = await axios.post(
-		'http://localhost:5005/teachers/login',{
+		'/teachers/login',{
 			email,
 			password
 		});

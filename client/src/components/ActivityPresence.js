@@ -84,7 +84,7 @@ class ActivityPresence extends React.Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		axios.patch('http://localhost:5005/students',{updateUsers,absents})
+		axios.patch('/students',{updateUsers,absents})
 		     .then(res => alert('Successfully updated student data'))
 		     .catch(err => console.log(err));
 	};
