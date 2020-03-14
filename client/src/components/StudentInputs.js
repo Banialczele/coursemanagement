@@ -8,7 +8,7 @@ const StudentInputs = props => {
 			let studentId = `student${idx}`,studentLast = `last${idx}`,studentEmail = '';
 			return (
 				<div className="students" key={idx}>
-					<label className="studentLabel" htmlFor={studentId}>{`Imie studenta #${idx+1}`}</label>
+					<label className="studentLabel" htmlFor={studentId}>Imie</label>
 					<div className="studentInput">
 					<input
 						type="text"

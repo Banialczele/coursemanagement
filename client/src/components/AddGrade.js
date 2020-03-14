@@ -32,7 +32,7 @@ class AddGrade extends React.Component {
 				}
 			}
 		}
-		axios.patch('http://localhost:3000/students/addGrade',{weights})
+		axios.patch('http://localhost:5005/students/addGrade',{weights})
 		     .then(res => alert('successfully updated student data'))
 		     .catch(err => console.log(err));
 		weights = [];

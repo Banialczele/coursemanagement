@@ -16,7 +16,7 @@ class Activity extends React.Component {
 	componentDidMount() {
 		if(localStorage.length > 1) {
 			this.setState({isLogged: true});
-			axios.get('http://localhost:3000/course/getAll',{
+			axios.get('http://localhost:5005/course/getAll',{
 				     headers: {
 					     "Content-Type": "application/json",
 					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`

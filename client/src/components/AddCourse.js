@@ -38,7 +38,7 @@ class AddCourse extends React.Component {
 
 	onFormSubmit = (e) => {
 		e.preventDefault();
-		axios.post('http://localhost:3000/course/add',{
+		axios.post('http://localhost:5005/course/add',{
 			     name: this.state.courseName,
 			     startingDate: this.state.startDate,
 			     students: this.state.studentList
@@ -51,7 +51,7 @@ class AddCourse extends React.Component {
 		     .then(res => {
 		     	console.log(this.state.studentList);
 			     this.state.studentList.map(student => {
-				     return axios.post('http://localhost:3000/students/add',{
+				     return axios.post('http://localhost:5005/students/add',{
 					                 name: student.name,
 					                 last: student.last,
 					                 email: student.email,
@@ -134,7 +134,6 @@ class AddCourse extends React.Component {
 	};
 
 	render() {
-		console.log(localStorage);
 		if(this.state.isLogged === true) {
 			return this.addingCourseForm();
 		} else if(this.state.isLogged === false){

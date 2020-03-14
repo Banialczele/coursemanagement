@@ -37,12 +37,12 @@ const Entry = () => {
 						   których dzień tygodnia odpowiada dniu rozpoczęcia zajęć. Dzięki temu, każdy nauczyciel ma możliwość <b>sprawdzenia
 						                                                                                                          obecności</b> oraz <b>dodania
 						                                                                                                                                oceny</b> razem
-						   z <b>formą sprawdzenia wiedzy</b>. Możliwe opcje wyboru formy sprawdzenia wiedzy: <ul>
+						   z <b>formą sprawdzenia wiedzy</b>.</p> Możliwe opcje wyboru formy sprawdzenia wiedzy: <ul>
 								<li>Odpowiedź ustna z wagą 1</li>
 								<li>Wejściówka z wagą 2</li>
 								<li>Kolokwium z wagą 3</li>
 							</ul>
-						   Wyświetlana jest lista wszystkich kursów razem z listą wszystkich zapisanych studentów do danego kursu, każdemu studentowi
+						<p>   Wyświetlana jest lista wszystkich kursów razem z listą wszystkich zapisanych studentów do danego kursu, każdemu studentowi
 						   możemy sprawdzić obecność oraz dodać nowe oceny. Nie musimy dodawać ocen wszystkim studentom, jeśli któryś student jest
 						   nieobecny na zajęciach to może zostać pominięty w dodawaniu ocen.
 						</p>
