@@ -14,7 +14,7 @@ class Activity extends React.Component {
 	};
 
 	componentDidMount() {
-		if(localStorage.length > 1) {
+		// if(localStorage.length > 1) {
 			this.setState({isLogged: true});
 			axios.get('/course/getAll',{
 				     headers: {
@@ -24,7 +24,7 @@ class Activity extends React.Component {
 			     })
 			     .then(res => this.setState({courses: res.data}))
 			     .catch(err => console.log(err));
-		}
+		// }
 	}
 
 	getCurrentDay = () => {
