@@ -16,6 +16,7 @@ router.post('/teachers/add',async(req,res) => {
 
 //login teacher
 router.post('/teachers/login',async(req,res) => {
+	console.log(req.body);
 	try {
 		const teacher = await Teacher.findByCredentials(req.body.email,req.body.password);
 		const token = await teacher.generateAuthToken();

@@ -36,6 +36,7 @@ class Login extends React.Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
+		console.log(this.state.email, this.state.password);
 		DoLogin(this.state.email,this.state.password)
 			.then(res => {
 				localStorage.setItem('mysecrettoken',res.data.token);

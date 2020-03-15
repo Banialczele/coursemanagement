@@ -6,7 +6,7 @@
   "scripts": {
     "client": "cd client/src && npm start",
     "server": "node index.js",
-    "start": "concurrently \"npm run client\" \"npm run server\" ",
+    "start": "npm run client",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {

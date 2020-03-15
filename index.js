@@ -8,7 +8,7 @@ const courseRouter = require('./routers/course');
 const teacherRouter = require('./routers/teacher');
 const app = express();
 app.use(cors());
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 3001;
 
 
 app.use(express.json());
