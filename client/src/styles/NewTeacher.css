@@ -1,11 +1,11 @@
 .teacherContainer {
-    margin: auto;
+    margin: 0 auto;
     height: 65vh;
+    width: 85vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 
 .teacherForm {
     display: flex;
@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     height: 60vh;
-    width: 100%;
+    width: 80%;
     background: rgba(38, 71, 255, 0.7);
     padding: 10px 50px 0 50px;
 }
@@ -40,8 +40,8 @@
 }
 
 @media screen and (max-width: 700px) {
+
     .teacherForm {
-        margin: 0 auto;
         display: flex;
         flex-direction: column;
         padding: 0 20px;
@@ -59,14 +59,19 @@
     .teacherLabelElement {
         margin: 30px;
     }
-    
+
     .teacherInputElement {
         width: 80%;
     }
 }
 
-@media screen and (max-height: 600px ){
+@media screen and (max-height: 450px ) {
+    .teacherContainer {
+        margin: 0;
+    }
+
     .teacherForm {
         padding: 20px;
+
     }
 }
