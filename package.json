@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "client": "cd client/src && npm start",
-    "server": "cd server/src && node index.js",
-    "start": "concurrently \"npm run client\" \"npm run server\" "
+    "server": "node index.js",
+    "start": "concurrently \"npm run client\" \"npm run server\" ",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
     "reactjs-popup": "^1.5.0",
-    "validator": "^12.2.0"
+    "validator": "^12.2.0",
+    "minimist": ">=1.2.0"
   }
 }
