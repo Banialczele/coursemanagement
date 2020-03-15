@@ -17,5 +17,5 @@ app.use(teacherRouter);
 app.use(courseRouter);
 
 app.listen(port,() => {
-	console.log(`Server is running on port ${port}`);
+	console.log(`Successfully run server. it is running on port ${port}`);
 });
