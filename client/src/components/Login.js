@@ -54,10 +54,10 @@ class Login extends React.Component {
 	loginForm() {
 		return (
 			<div className="loginContainer">
-				<div className="loginForm">
-					<form onSubmit={this.onSubmit}>
-						<div className="labelInput">
-							<label htmlFor="email" className="labelElement">
+				<div className="loginFormContainer">
+					<form onSubmit={this.onSubmit} className="loginForm">
+						<div className="loginLabelInput">
+							<label htmlFor="email" className="loginLabelElement">
 								Email:
 							</label>
 							<input
@@ -65,12 +65,12 @@ class Login extends React.Component {
 								name="email"
 								value={this.state.email}
 								onChange={this.onEmailChange}
-								className="inputElement"
+								className="loginInputElement"
 							/>
 						</div>
 						<br/>
-						<div className="labelInput">
-							<label htmlFor="password" className="labelElement">
+						<div className="loginLabelInput">
+							<label htmlFor="password" className="loginLabelElement">
 							Hasło:
 						</label>
 							<input
@@ -78,7 +78,7 @@ class Login extends React.Component {
 								name="password"
 								value={this.state.password}
 								onChange={this.onPassChange}
-								className="inputElement"
+								className="loginInputElement"
 							/>
 						</div>
 						<br/>

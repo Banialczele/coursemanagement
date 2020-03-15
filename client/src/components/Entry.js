@@ -69,9 +69,10 @@ const Entry = () => {
 						</p>
 					</section>
 				</div>
-
+				<div className="entryButtonDiv">
 				<button onClick={handleLoginRedirect} type="button">Zaloguj</button>
 				<button onClick={handleNewTeacher} type="button">Dodaj nauczyciela</button>
+				</div>
 			</div>
 		</div>
 	);

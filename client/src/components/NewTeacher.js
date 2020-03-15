@@ -34,39 +34,39 @@ class NewTeacher extends React.Component {
 	addingNewTeacherForm = () => {
 		return (
 			<div className="teacherContainer">
-				<div className="teacherForm">
-					<form onSubmit={this.handleFormSubmit}>
-						<div className="labelInput">
-							<label htmlFor="teacherName" className="labelElement">Imie:</label>
-							<input type="text" name="teacherName" onChange={e => this.setState({name: e.target.value})} className="inputElement"/>
+				<div className="newTeacherFormContainer">
+					<form onSubmit={this.handleFormSubmit} className="teacherForm">
+						<div className="teacherLabelInput">
+							<label htmlFor="teacherName" className="teacherLabelElement">Imie:</label>
+							<input type="text" name="teacherName" onChange={e => this.setState({name: e.target.value})} className="teacherInputElement"/>
 
 						</div>
 						<br/>
-						<div className="labelInput">
-							<label htmlFor="teacherLast" className="labelElement"> Nazwisko:</label>
+						<div className="teacherLabelInput">
+							<label htmlFor="teacherLast" className="teacherLabelElement"> Nazwisko:</label>
 							<input type="text"
 							       name="teacherLast"
 							       value={this.state.last}
 							       onChange={e => this.setState({last: e.target.value})}
-							       className="inputElement"/>
+							       className="teacherInputElement"/>
 						</div>
 						<br/>
-						<div className="labelInput">
-							<label htmlFor="teacherEmail" className="labelElement">Email:</label>
+						<div className="teacherLabelInput">
+							<label htmlFor="teacherEmail" className="teacherLabelElement">Email:</label>
 							<input type="text"
 							       name="teacherEmail"
 							       value={this.state.email}
 							       onChange={e => this.setState({email: e.target.value})}
-							       className="inputElement"/>
+							       className="teacherInputElement"/>
 						</div>
 						<br/>
-						<div className="labelInput">
-							<label htmlFor="teacherPassword" className="labelElement">Hasło </label>
+						<div className="teacherLabelInput">
+							<label htmlFor="teacherPassword" className="teacherLabelElement">Hasło </label>
 							<input type="password"
 							       minLength="7"
 							       name="teacherPassword"
 							       value={this.state.password}
-							       onChange={e => this.setState({password: e.target.value})} className="inputElement"
+							       onChange={e => this.setState({password: e.target.value})} className="teacherInputElement"
 							/>
 						</div>
 						<br/>

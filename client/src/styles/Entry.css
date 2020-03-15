@@ -14,7 +14,7 @@ button {
     background: white;
     border: none;
     border-radius: 5px;
-    padding: 10px 15px;
+    padding: 5px 10px;
     font-size: 16px;
     transition-duration: 0.5s;
     margin: 0 10px;
@@ -23,4 +23,17 @@ button {
 button:hover {
     background: rgba(0,0,255, 0.3);
     letter-spacing: 2px;
+}
+
+@media only screen and (max-width:500px){
+
+    .entryButtonDiv {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .entryButtonDiv button {
+        padding: 4px 8px;
+        margin-bottom: 10px;
+    }
 }

@@ -6,37 +6,22 @@
     justify-content: center;
 }
 
-form {
-    margin: 5px auto;
-    width: 20vw;
-    text-align: center;
-}
-
 .loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     background: rgba(38, 71, 255, 0.7);
-    padding: 70px 130px;
+    height: 35vh;
+    width: 30vw;
+    padding: 20px 20px 20px 50px;
 }
 
-.labelInput {
-    margin: 15px 0;
-}
-
-.labelElement {
-    display: inline-block;
-    float: left;
-    clear: left;
-    width: 80px;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 18px;
-}
-
-.inputElement {
-    display: inline-block;
-    float:left;
-    padding: 5px 0;
-    width: 55%;
-    border-radius: 5px;
+.loginLabelInput {
+    display: grid;
+    grid-template-columns: 40px 250px;
+    justify-items: center;
+    align-items: center;
 }
 
 .button {
@@ -49,6 +34,40 @@ form {
 }
 
 .button:hover {
-    background: rgba(0,0,255, 0.3);
+    background: rgba(0, 0, 255, 0.3);
     letter-spacing: 2px;
+}
+
+@media screen and (max-width: 700px ) {
+    .loginLabelInput {
+        display: grid;
+        grid-template-columns: 40px 150px;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .loginLabelElement {
+        width: 80px;
+    }
+
+    .loginInputElement {
+        width: 130px;
+    }
+}
+
+@media screen and (max-width: 420px ) {
+    .loginLabelInput {
+        display: grid;
+        grid-template-columns: 120px;
+        grid-template-rows: 10px 45px;
+        align-content: center;
+        justify-content: center;
+        padding-right: 30px;
+        margin-top: 5px;
+    }
+
+    .loginLabelElement {
+        margin-top: 5px;
+    }
+
 }
