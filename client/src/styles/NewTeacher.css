@@ -50,7 +50,6 @@
     .teacherLabelInput {
         display: grid;
         grid-template-columns: 150px;
-        border: 1px solid red;
         grid-template-rows: 15px 30px;
         justify-items: center;
         align-items: center;
@@ -60,9 +59,14 @@
     .teacherLabelElement {
         margin: 30px;
     }
-
-
+    
     .teacherInputElement {
         width: 80%;
+    }
+}
+
+@media screen and (max-height: 600px ){
+    .teacherForm {
+        padding: 20px;
     }
 }
