@@ -34,4 +34,8 @@
         align-items: center;
         padding: 20px 0;
     }
+
+    .activityButton {
+        margin-bottom: 5px;
+    }
 }
