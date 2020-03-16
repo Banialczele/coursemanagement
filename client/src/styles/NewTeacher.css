@@ -1,6 +1,6 @@
 .teacherContainer {
     margin: 0 auto;
-    height: 65vh;
+    height: 50vh;
     width: 85vw;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 40vh;
     width: 80%;
     background: rgba(38, 71, 255, 0.7);
     padding: 10px 50px 0 50px;
@@ -40,11 +40,11 @@
 }
 
 @media screen and (max-width: 700px) {
-
     .teacherForm {
+        margin-top: 40px;
         display: flex;
         flex-direction: column;
-        padding: 0 20px;
+        padding: 50px 20px;
     }
 
     .teacherLabelInput {
@@ -65,13 +65,11 @@
     }
 }
 
-@media screen and (max-height: 450px ) {
-    .teacherContainer {
-        margin: 0;
-    }
-
+@media screen and (max-height: 570px ) {
     .teacherForm {
-        padding: 20px;
-
+        margin-top: 90px;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 70px 20px;
     }
 }

@@ -1,5 +1,5 @@
 .loginContainer {
-    margin: auto;
+    margin: 0 auto;
     height: 65vh;
     display: flex;
     align-items: center;
@@ -12,9 +12,10 @@
     justify-content: center;
     align-content: center;
     background: rgba(38, 71, 255, 0.7);
-    height: 35vh;
+    height: 30vh;
     width: 30vw;
     padding: 20px 20px 20px 50px;
+
 }
 
 .loginLabelInput {
@@ -54,6 +55,9 @@
     .loginInputElement {
         width: 130px;
     }
+}
+
+@media screen and (max-height: 700px) {
 }
 
 @media screen and (max-width: 600px ) {

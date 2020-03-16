@@ -25,10 +25,10 @@ class AddCourse extends React.Component {
 	};
 
 	componentDidMount() {
-		if(localStorage.length > 1) {
-			const teacher = localStorage.getItem('loggedTeacher');
-			this.setState({isLogged: true,loggedTeacher: teacher});
-		}
+		// if(localStorage.length > 1) {
+		const teacher = localStorage.getItem('loggedTeacher');
+		this.setState({isLogged: true,loggedTeacher: teacher});
+		// }
 	};
 
 	onNameChange = (e) => {
@@ -49,7 +49,7 @@ class AddCourse extends React.Component {
 			     }
 		     })
 		     .then(res => {
-		     	console.log(this.state.studentList);
+			     console.log(this.state.studentList);
 			     this.state.studentList.map(student => {
 				     return axios.post('/students/add',{
 					                 name: student.name,
@@ -99,33 +99,32 @@ class AddCourse extends React.Component {
 	addingCourseForm = () => {
 		return (
 			<div className="addCourseContainer">
-				<div className="addCourseForm">
-					<form onSubmit={this.onFormSubmit} onChange={this.handleChange}>
-						<div className="labelContainer">
+				<div className="addCourseFormContainer">
+					<form onSubmit={this.onFormSubmit} onChange={this.handleChange} className="addCourseForm">
+						<div className="displayData">
 							<label className="labelStyles">Nazwa kursu</label><br/>
 							<input type="text" onChange={this.onNameChange}/><br/>
-						</div>
-						<label className="labelStyles">Data</label> <br/>
-						<DatePicker
-							className="datePickerStyle"
-							selected={this.state.startDate}
-							onChange={date => this.setState({startDate: date})}
-							showTimeSelect
-							timeFormat="HH:mm"
-							timeIntervals={15}
-							timeCaption="time"
-							dateFormat="dd-MM-yyyy h:mm aa"
-						/>
-						<br/>
-						<div className="studentList">
+							<label className="DataLabelStyles labelStyles">Data</label> <br/>
+							<DatePicker
+								className="datePickerStyle"
+								selected={this.state.startDate}
+								onChange={date => this.setState({startDate: date})}
+								showTimeSelect
+								timeFormat="HH:mm"
+								timeIntervals={15}
+								timeCaption="time"
+								dateFormat="dd-MM-yyyy h:mm aa"
+							/>
+							<br/>
+
 							<label className="labelStyles">Lista studentów </label>
 							<div className="studentListComponent">
 								<StudentInputs studentList={this.state.studentList}/>
 							</div>
-						</div>
-						<div className="elo">
-							<button type="button" onClick={this.addStudent} className="addStudentButton">Dodaj Studenta</button>
-							<input type="submit" value="Wyślij" className="addStudentButton"/>
+							<div className="clearBoth">
+								<button type="button" onClick={this.addStudent} className="addStudentButton">Dodaj Studenta</button>
+								<input type="submit" value="Wyślij" className="addStudentButton"/>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -136,7 +135,7 @@ class AddCourse extends React.Component {
 	render() {
 		if(this.state.isLogged === true) {
 			return this.addingCourseForm();
-		} else if(this.state.isLogged === false){
+		} else if(this.state.isLogged === false) {
 			return (
 				<div style={{color: 'red'}}>Please login to continue!</div>
 			);

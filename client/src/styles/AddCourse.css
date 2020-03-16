@@ -1,17 +1,35 @@
-.addCourseForm{
-    text-align: center;
-    padding: 20px;
-    margin: 0 auto;
-    width: 50vw;
-    background: rgba(105,202,255,0.9);
-}
-
 .addCourseContainer {
-    height: 100vh;
+    margin: 40px auto;
 }
 
-.labelContainer {
-    margin-bottom: 15px;
+.addCourseFormContainer {
+    margin: 10px auto;
+    width: 50vw;
+    height: 60vh;
+    background: rgba(105, 202, 255, 0.9);
+}
+
+.addCourseForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.addCourseForm .displayData > input {
+    border-radius: 5px;
+}
+
+.displayData {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.datePickerStyle{
+    align-items: center;
 }
 
 .labelStyles {
@@ -19,25 +37,6 @@
     text-align: center;
     padding: 8px 15px;
     border-radius: 5px;
-}
-
-.datePickerStyle {
-    margin: 10px;
-}
-
-input {
-    padding: 5px 5px;
-    margin: 10px;
-    border-radius: 5px;
-}
-
-.studentList {
-    margin: 15px auto;
-    width: 22vw;
-}
-
-.studentListLabel {
-    background: rgba(0,0,0,0.5);
 }
 
 .addStudentButton {
@@ -50,10 +49,18 @@ input {
 }
 
 .addStudentButton:hover {
-    background: rgba(0,0,255, 0.3);
+    background: rgba(0, 0, 255, 0.3);
     letter-spacing: 2px;
 }
 
-.elo {
-    clear:both;
+.clearBoth {
+    clear: both;
+}
+
+@media screen and (max-width: 420px) {
+
+}
+
+@media screen and (max-height: 700px){
+
 }
