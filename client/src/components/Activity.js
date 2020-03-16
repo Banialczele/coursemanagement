@@ -68,9 +68,7 @@ class Activity extends React.Component {
 			return (<NoClasses/>)
 		}
 	});
-
-
-
+	
 	render() {
 		if(this.state.isLogged === true) {
 			return (

@@ -19,6 +19,19 @@
 }
 
 .activityButton:hover {
-    background: rgba(0,0,255, 0.3);
+    background: rgba(0, 0, 255, 0.3);
     letter-spacing: 2px;
+}
+
+@media screen and (max-width: 500px ) {
+    .gridContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr 1fr;
+        width: 100%;
+        margin: 20px auto;
+        justify-items: center;
+        align-items: center;
+        padding: 20px 0;
+    }
 }
