@@ -42,7 +42,7 @@ class Grades extends React.Component {
 	showTableHeader = () => {
 		return (
 			<thead className="GridTableHeader">
-				<tr className="GridTableChild">
+				<tr className="GridTableHeaderChild">
 					<th>Nazwa kursu</th>
 					<th>Data rozpoczęcia zajęć</th>
 					<th style={{display: 'inline'}}>Data kolejnych zajęć
