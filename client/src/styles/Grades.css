@@ -20,7 +20,11 @@
     grid-template-columns: repeat(7, 2fr);
     /*grid-template-columns: 250px 180px 200px 300px 250px 200px 200px;*/
     justify-items: center;
+    justify-content: center;
+    align-content: center;
     align-items: center;
+    justify-self: center;
+    align-self: center;
     margin-bottom: 5px;
 }
 
@@ -47,7 +51,7 @@
 
     .GridTableChild {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         grid-template-rows: repeat(7, 1fr);
         grid-gap: 10px;
     }
