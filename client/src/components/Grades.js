@@ -17,7 +17,7 @@ class Grades extends React.Component {
 	componentDidMount() {
 		// if(localStorage.length > 1) {
 			this.setState({isLogged: true});
-			axios.get('http://localhost:3001/students/getAll',{
+			axios.get('/students/getAll',{
 				     headers: {
 					     "Content-Type": "application/json",
 					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,

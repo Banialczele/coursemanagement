@@ -80,9 +80,6 @@ class AddCourse extends React.Component {
 
 	//checking if user passed necessary data
 	handleChange = e => {
-		console.log(e.target.className);
-		console.log(e.target.name);
-		console.log(e.target.value);
 		//checking if passing values with names of "name" and "last" and "email"
 		if(["name","last","email"].includes(e.target.className)) {
 			//making copy of our studentList array
