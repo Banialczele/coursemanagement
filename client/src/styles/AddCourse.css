@@ -28,7 +28,7 @@
     align-items: center;
 }
 
-.datePickerStyle{
+.datePickerStyle {
     align-items: center;
 }
 
@@ -58,9 +58,24 @@
 }
 
 @media screen and (max-width: 420px) {
+    .addCourseFormContainer {
+        width: 70vw;
+        height: 100vh;
+        background: rgba(105, 202, 255, 0.9);
+    }
 
+    .clearBoth {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin: 5px;
+    }
+
+    .addStudentButton {
+        margin: 5px;
+    }
 }
 
-@media screen and (max-height: 700px){
+@media screen and (max-height: 700px) {
 
 }

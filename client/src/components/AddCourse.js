@@ -25,10 +25,10 @@ class AddCourse extends React.Component {
 	};
 
 	componentDidMount() {
-		// if(localStorage.length > 1) {
+		if(localStorage.length > 1) {
 		const teacher = localStorage.getItem('loggedTeacher');
 		this.setState({isLogged: true,loggedTeacher: teacher});
-		// }
+		}
 	};
 
 	onNameChange = (e) => {

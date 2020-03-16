@@ -7,7 +7,7 @@
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid red;
     height: 25vh;
-    width: 15vw;
+    width: 30vw;
 }
 
 .students .studentInput > input {
@@ -15,28 +15,9 @@
     border-radius: 5px;
 }
 
-/*.students {*/
-/*    margin: 15px 0;*/
-/*    border-radius: 5px;*/
-/*    */
-/*    height: 180px;*/
-/*    width: auto;*/
-/*}*/
-
-/*.studentLabel {*/
-/*    display: inline-block;*/
-/*    float: left;*/
-/*    clear: left;*/
-/*    width: 6vw;*/
-/*    text-align: center;*/
-/*    padding: 20px 0;*/
-/*    font-size: 18px;*/
-/*}*/
-
-/*.studentInput {*/
-/*    display: inline-block;*/
-/*    float: left;*/
-/*    padding: 5px 0;*/
-/*    width: 40%;*/
-/*    border-radius: 5px;*/
-/*}*/
+@media screen and (max-width: 420px) {
+    .students {
+        width: 50vw;
+        padding: 40px 20px 20px 20px;
+    }
+}
