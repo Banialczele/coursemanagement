@@ -23,12 +23,18 @@
     place-content: center;
 }
 
-.gridTableChild {
+.GridTableBody {
     display: grid;
+    width: 100%;
+}
+
+.GridTableChild {
+    display: grid;
+    width: 100%;
     grid-template-columns: repeat(7, 1fr);
     place-items: center;
     place-content: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .buttonStyle {
@@ -45,16 +51,29 @@
     letter-spacing: 2px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 900px) {
     .GridTableParent {
         display: grid;
-        justify-items: center;
+        place-content: center;
+        place-items: center;
         height: 100%;
+    }
+
+    .GridTableHeader {
+        display: grid;
+    }
+
+    .GridTableHeaderChild {
+        display: grid;
+        height: 100%;
+        width: 90%;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7, 1fr);
     }
 
     .GridTableChild {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: auto;
         grid-template-rows: repeat(7, 1fr);
         grid-gap: 10px;
     }

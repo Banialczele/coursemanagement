@@ -76,6 +76,9 @@
     }
 }
 
-@media screen and (max-height: 700px) {
-
+@media screen and (max-height: 750px) {
+    .addCourseFormContainer {
+        padding: 10px;
+        height: 100%;
+    }
 }

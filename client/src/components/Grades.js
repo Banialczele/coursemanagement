@@ -15,9 +15,9 @@ class Grades extends React.Component {
 	};
 
 	componentDidMount() {
-		if(localStorage.length > 1) {
+		// if(localStorage.length > 1) {
 			this.setState({isLogged: true});
-			axios.get('/students/getAll',{
+			axios.get('http://localhost:3001/students/getAll',{
 				     headers: {
 					     "Content-Type": "application/json",
 					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
@@ -25,7 +25,7 @@ class Grades extends React.Component {
 			     })
 			     .then(res => {this.setState({students: res.data})})
 			     .catch(err => console.log(err));
-		}
+		// }
 	}
 
 	showDate = (date) => {
@@ -34,7 +34,7 @@ class Grades extends React.Component {
 	};
 
 	handleButtonClick = () => {
-		axios.patch('http://localhost:3000/course/updateTime')
+		axios.patch('/course/updateTime')
 		     .then(res => res)
 		     .catch(err => console.log(err));
 	};
