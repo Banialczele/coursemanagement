@@ -8,7 +8,7 @@ const StudentInputs = props => {
 			let studentId = `student${idx}`,studentLast = `last${idx}`,studentEmail = '';
 			return (
 				<div className="students" key={idx}>
-					<div>
+					<div className="studentDataContainer">
 						<label className="studentLabel" htmlFor={studentId}>Imie</label>
 						<div className="studentInput">
 							<input
@@ -22,7 +22,7 @@ const StudentInputs = props => {
 						</div>
 					</div>
 					<br/>
-					<div>
+					<div className="studentDataContainer">
 						<label className="studentLabel" htmlFor={studentLast}>Nazwisko</label>
 						<div className="studentInput">
 							<input
@@ -36,7 +36,7 @@ const StudentInputs = props => {
 						</div>
 					</div>
 					<br/>
-					<div><label className="studentLabel" htmlFor={studentEmail}>Email</label>
+					<div className="studentDataContainer"><label className="studentLabel" htmlFor={studentEmail}>Email</label>
 						<div className="studentInput">
 							<input
 								type="text"

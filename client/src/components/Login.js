@@ -46,6 +46,7 @@ class Login extends React.Component {
 				alert('Successfully logged in');
 			})
 			.catch(err => {
+				console.log(err);
 				alert('Unable to login, user not found');
 			});
 	};

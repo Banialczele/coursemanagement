@@ -4,6 +4,8 @@ import moment from 'moment';
 import Popup from 'reactjs-popup';
 import ActivityPresence from "./ActivityPresence";
 import AddGrade from "./AddGrade";
+import EditGrade from './EditGrade';
+
 import '../styles/Activity.css';
 import NoClasses from "./NoClasses";
 
@@ -15,15 +17,15 @@ class Activity extends React.Component {
 
 	componentDidMount() {
 		// if(localStorage.length > 1) {
-			this.setState({isLogged: true});
-			axios.get('/course/getAll',{
-				     headers: {
-					     "Content-Type": "application/json",
-					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`
-				     }
-			     })
-			     .then(res => this.setState({courses: res.data}))
-			     .catch(err => console.log(err));
+		this.setState({isLogged: true});
+		axios.get('/course/getAll',{
+			     headers: {
+				     "Content-Type": "application/json",
+				     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`
+			     }
+		     })
+		     .then(res => this.setState({courses: res.data}))
+		     .catch(err => console.log(err));
 		// }
 	}
 
@@ -48,17 +50,25 @@ class Activity extends React.Component {
 			return courses.map((course,index) => {
 				return (
 					<div className="gridContainer" key={index}>
-						Kurs: {course.name}
-						<div className="grid-item">
+						{course.name}
+						<div>
 							<Popup
 								modal
-								trigger={<button type="button" value="Sprawdź obecność" className="activityButton">Sprawdź obecność</button>}>
-								<ActivityPresence startingClasses={course.startingDate} courseDate={course.nextClasses} studentData={course.students}/>
+								trigger={<button type="button" value="Sprawdź obecność" className="activityButton fixedWidth">Sprawdź
+								                                                                                              obecność</button>}>
+								<ActivityPresence startingClasses={course.startingDate}
+								                  courseDate={course.nextClasses}
+								                  studentData={course.students}/>
 							</Popup>
 						</div>
-						<div>
-							<Popup modal trigger={<button className="activityButton">Dodaj ocene</button>}>
+						<div className="fixedWidth">
+							<Popup modal trigger={<button className="activityButton fixedWidth">Dodaj ocene</button>}>
 								<AddGrade courseDate={course.nextClasses} course={course}/>
+							</Popup>
+						</div>
+						<div className="fixedWidth">
+							<Popup modal trigger={<button className="activityButton fixedWidth">Edytuj ocene</button>}>
+								<EditGrade/>
 							</Popup>
 						</div>
 					</div>
@@ -68,7 +78,7 @@ class Activity extends React.Component {
 			return (<NoClasses/>)
 		}
 	});
-	
+
 	render() {
 		if(this.state.isLogged === true) {
 			return (

@@ -1,12 +1,21 @@
 .gridContainer {
     background: rgba(38, 121, 255, 0.99);
-    width: 50vw;
+    width: 70%;
     margin: 20px auto;
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.gridContainer > div {
+    width: 100%;
+}
+
+.fixedWidth {
+    width: 80%;
 }
 
 .activityButton {
@@ -23,19 +32,26 @@
     letter-spacing: 2px;
 }
 
-@media screen and (max-width: 500px ) {
+@media screen and (max-width: 750px ) {
     .gridContainer {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 2fr 1fr 1fr;
-        width: 100%;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        width: 80%;
         margin: 20px auto;
-        justify-items: center;
-        align-items: center;
+        justify-content: center;
+        align-content: center;
         padding: 20px 0;
+
+    }
+
+    .gridContainer > div {
+        text-align: center;
+        width: 70%;
     }
 
     .activityButton {
         margin-bottom: 5px;
+        width: 70%;
     }
 }

@@ -35,6 +35,8 @@ a:hover {
 nav ul.container {
     border: 1px solid black;
     display: flex;
+    justify-items: center;
+    align-items: center;
     list-style: none;
     margin: 15px 0;
     padding: 0;
@@ -42,12 +44,39 @@ nav ul.container {
 
 .flex-nav li {
     flex: 1;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+nav ul li:last-child {
+    display: none;
 }
 
 @media screen and (max-width: 500px) {
-    nav ul.container{
+    nav ul.container {
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
+        width: 60%;
+    }
+
+    nav ul.container li {
+        width: 100%;
+        flex: 1;
+        margin: 0 auto;
+        display: none;
+    }
+
+    nav ul.container li:last-child {
+        display: flex;
+        width: 100%;
+        clear: both;
+        flex: 1;
+    }
+
+    ul.container.responsive li {
+        display: flex;
     }
 }
 

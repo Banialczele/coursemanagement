@@ -16,15 +16,15 @@ class Grades extends React.Component {
 
 	componentDidMount() {
 		// if(localStorage.length > 1) {
-			this.setState({isLogged: true});
-			axios.get('/students/getAll',{
-				     headers: {
-					     "Content-Type": "application/json",
-					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
-				     }
-			     })
-			     .then(res => {this.setState({students: res.data})})
-			     .catch(err => console.log(err));
+		this.setState({isLogged: true});
+		axios.get('/students/getAll',{
+			     headers: {
+				     "Content-Type": "application/json",
+				     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
+			     }
+		     })
+		     .then(res => {this.setState({students: res.data})})
+		     .catch(err => console.log(err));
 		// }
 	}
 
@@ -41,22 +41,18 @@ class Grades extends React.Component {
 
 	showTableHeader = () => {
 		return (
-			<thead className="GridTableHeader">
-				<tr className="GridTableHeaderChild">
-					<th>Nazwa kursu</th>
-					<th>Data rozpoczęcia zajęć</th>
-					<th style={{display: 'inline'}}>Data kolejnych zajęć
-						<button type="button" className="buttonStyle" onClick={this.handleButtonClick}>Aktualizuj date</button></th>
-					<th>Student</th>
-					<th>Obecność</th>
-					<th>
-						Ocena końcowa
-					</th>
-					<th>
-						Oceny
-					</th>
-				</tr>
-			</thead>
+			<div className="GridTableHeader">
+				<div className="GridTableHeaderChild">
+					<div>Nazwa kursu</div>
+					<div>Rozpoczęcie zajęć</div>
+					<div className="gradesShowColumn">Kolejne zajęcia
+						<button type="button" className="buttonStyle" onClick={this.handleButtonClick}>Aktualizuj date</button></div>
+					<div>Student</div>
+					<div>Obecność</div>
+					<div>Ocena końcowa</div>
+					<div>Oceny</div>
+				</div>
+			</div>
 		);
 	};
 
@@ -64,33 +60,34 @@ class Grades extends React.Component {
 		return (
 			students.map((student,i) => {
 				return (
-					<tbody key={i} className="GridTableBody">
-						<tr key={i} className="GridTableChild">
-							<td><b>{student.course.name}</b></td>
-							<td>{moment(this.showDate(student.course.startingDate))
-								.format('DD/MM/YYYY h:mm a')}</td>
-							<td>
+					<div key={i} className="GridTableBody">
+						<div key={i} className="GridTableChild">
+							<div><b>{student.course.name}</b></div>
+							<div>{moment(this.showDate(student.course.startingDate))
+								.format('DD/MM/YYYY h:mm a')}</div>
+							<div>
 								{moment(this.showDate(student.course.nextClasses))
 									.format('DD/MM/YYYY h:mm a')}
-							</td>
-							<td>
+							</div>
+							<div>
 								<b>{student.name} {student.last}</b>
-							</td>
-							<td>
+							</div>
+							<div>
 								<Popup modal trigger={<button className="buttonStyle">Pokaż obecność</button>}>
 									<PresenceDetail presenceArray={student.presences} courseDate={student.nextClasses}/>
 								</Popup>
-							</td>
-							<td>
+							</div>
+							<div>
+
 								{this.calculateFinalGrade(student)}
-							</td>
-							<td>
+							</div>
+							<div>
 								<Popup modal trigger={<button className="buttonStyle">Pokaż oceny</button>}>
 									<GradesDetail gradesArr={student.grades} weightsArr={student.weights}/>
 								</Popup>
-							</td>
-						</tr>
-					</tbody>
+							</div>
+						</div>
+					</div>
 				)
 			})
 		);
@@ -121,10 +118,10 @@ class Grades extends React.Component {
 			}
 			return (
 				<div className="background">
-					<table className="GridTableParent">
+					<div className="GridTableParent">
 						{this.showTableHeader()}
 						{this.showTableData(this.state.students)}
-					</table>
+					</div>
 				</div>
 			);
 		} else {

@@ -100,8 +100,8 @@ class AddCourse extends React.Component {
 					<form onSubmit={this.onFormSubmit} onChange={this.handleChange} className="addCourseForm">
 						<div className="displayData">
 							<label className="labelStyles">Nazwa kursu</label><br/>
-							<input type="text" onChange={this.onNameChange}/><br/>
-							<label className="DataLabelStyles labelStyles">Data</label> <br/>
+							<input className="AddCourseInputStyle" type="text" onChange={this.onNameChange}/><br/>
+							<label className="DataLabelStyles  labelStyles">Data</label> <br/>
 							<DatePicker
 								className="datePickerStyle"
 								selected={this.state.startDate}
@@ -118,7 +118,7 @@ class AddCourse extends React.Component {
 							<div className="studentListComponent">
 								<StudentInputs studentList={this.state.studentList}/>
 							</div>
-							<div className="clearBoth">
+							<div className="addCourseButtons">
 								<button type="button" onClick={this.addStudent} className="addStudentButton">Dodaj Studenta</button>
 								<input type="submit" value="Wyślij" className="addStudentButton"/>
 							</div>
