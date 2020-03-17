@@ -17,6 +17,7 @@ const StudentInputs = props => {
 								data-id={idx}
 								id={studentId}
 								className="name"
+								required
 							/>
 						</div>
 					</div>
@@ -30,6 +31,7 @@ const StudentInputs = props => {
 								data-id={idx}
 								id={studentLast}
 								className="last"
+								required
 							/>
 						</div>
 					</div>
@@ -42,6 +44,7 @@ const StudentInputs = props => {
 								data-id={idx}
 								id={studentEmail}
 								className="email"
+								required
 							/>
 						</div>
 					</div>
