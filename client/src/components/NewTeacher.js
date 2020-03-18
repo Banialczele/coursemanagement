@@ -14,7 +14,7 @@ class NewTeacher extends React.Component {
 
 	handleFormSubmit = (e) => {
 		e.preventDefault();
-		axios.post('/teachers/add',{
+		axios.post('http://localhost:3001/teachers/add',{
 			     name: this.state.name,
 			     last: this.state.last,
 			     email: this.state.email,

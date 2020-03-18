@@ -1,8 +1,5 @@
 import React from 'react';
-//import GetAll from './dboperations/GetAll';
-// import DoLogin from "./dboperations/DoLogin";
 import NavBar from './NavBar';
-// import AddCourse from "./dboperations/AddCourse";
 import '../styles/App.css';
 
 class App extends React.Component {

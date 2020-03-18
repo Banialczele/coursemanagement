@@ -1,10 +1,13 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import PresenceDetail from "./PresenceDetail";
 import Popup from "reactjs-popup";
 import '../styles/Grades.css';
 import GradesDetail from "./GradesDetail";
+import Entry from "./Entry";
+import EditGrade from "./EditGrade";
 
 class Grades extends React.Component {
 	state = {
@@ -15,17 +18,17 @@ class Grades extends React.Component {
 	};
 
 	componentDidMount() {
-		// if(localStorage.length > 1) {
-		this.setState({isLogged: true});
-		axios.get('/students/getAll',{
-			     headers: {
-				     "Content-Type": "application/json",
-				     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
-			     }
-		     })
-		     .then(res => {this.setState({students: res.data})})
-		     .catch(err => console.log(err));
-		// }
+		if(localStorage.length > 1) {
+			this.setState({isLogged: true});
+			axios.get('http://localhost:3001/students/getAll',{
+				     headers: {
+					     "Content-Type": "application/json",
+					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
+				     }
+			     })
+			     .then(res => {this.setState({students: res.data})})
+			     .catch(err => console.log(err));
+		}
 	}
 
 	showDate = (date) => {
@@ -51,6 +54,7 @@ class Grades extends React.Component {
 					<div>Obecność</div>
 					<div>Ocena końcowa</div>
 					<div>Oceny</div>
+					<div>Edytuj Ocene</div>
 				</div>
 			</div>
 		);
@@ -86,6 +90,11 @@ class Grades extends React.Component {
 									<GradesDetail gradesArr={student.grades} weightsArr={student.weights}/>
 								</Popup>
 							</div>
+							<div>
+								<Popup modal trigger={<button className="activityButton fixedWidth">Edytuj ocene</button>}>
+									<EditGrade student={student}/>
+								</Popup>
+							</div>
 						</div>
 					</div>
 				)
@@ -112,10 +121,10 @@ class Grades extends React.Component {
 	};
 
 	render() {
-		if(this.state.isLogged === true) {
-			if(this.state.students.length !== 0) {
-				this.calculateFinalGrade(this.state.students)
-			}
+		if(this.state.students.length !== 0) {
+			this.calculateFinalGrade(this.state.students)
+		}
+		if(localStorage.length > 1) {
 			return (
 				<div className="background">
 					<div className="GridTableParent">
@@ -125,18 +134,15 @@ class Grades extends React.Component {
 				</div>
 			);
 		} else {
-			return (
-				<div style={{color: 'red'}}>
-					<span> Please login to continue!</span>
-				</div>
-			);
+			if(localStorage.length === 0) {
+				alert('Please login to continue');
+				return (
+					<Redirect to={'/'}/>
+				)
+			}
 		}
 
 	}
 }
-
-//
-//
-
 
 export default Grades;

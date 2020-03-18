@@ -5,7 +5,7 @@ import '../styles/Login.css';
 
 const DoLogin = async(email,password) => {
 	const loginTeacher = await axios.post(
-		'/teachers/login',{
+		'http://localhost:3001/teachers/login',{
 			email,
 			password
 		});
@@ -56,7 +56,7 @@ class Login extends React.Component {
 			<div className="loginContainer">
 				<div className="loginFormContainer">
 					<form onSubmit={this.onSubmit} className="loginForm">
-						<div className="loginLabelInput">
+						<div className="loginFormSize">
 							<label htmlFor="email" className="loginLabelElement">
 								Email:
 							</label>
@@ -69,10 +69,10 @@ class Login extends React.Component {
 							/>
 						</div>
 						<br/>
-						<div className="loginLabelInput">
+						<div className="loginFormSize">
 							<label htmlFor="password" className="loginLabelElement">
-							Hasło:
-						</label>
+								Hasło:
+							</label>
 							<input
 								type="password"
 								name="password"
@@ -82,7 +82,7 @@ class Login extends React.Component {
 							/>
 						</div>
 						<br/>
-						<div style={{ clear: "both"}}></div>
+						<div style={{clear: "both"}}></div>
 						<input type="submit" className="button" value="Zaloguj"/>
 					</form>
 				</div>

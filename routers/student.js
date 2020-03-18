@@ -61,8 +61,8 @@ router.post('/students/logout',auth,async(req,res) => {
 router.get('/students/getAll',authTeacher,async(req,res) => {
 	try {
 		//looking for students
-		const student = await Student.find({teacher: req.teacher._id}).populate('course');
-		console.log(student);
+		const student = await Student.find({teacher: req.teacher._id})
+		                             .populate('course');
 		res.status(200)
 		   .send(student);
 	} catch(error) {
@@ -149,7 +149,6 @@ router.patch('/students/',async(req,res) => {
 	// 	}
 	// });
 	//array of users present during classes
-	console.log(updateArray);
 	updateArray.map(async user => {
 		const student = await Student.find({email: user.studentEmail});
 		const checkDate = moment(user.nextClasses)
@@ -158,7 +157,7 @@ router.patch('/students/',async(req,res) => {
 		const checkClassDate = moment(user.startingDate)
 			.isSame(user.nextClasses);
 		if(user.presence === true && checkDate === true) {
-			if(checkClassDate === true){
+			if(checkClassDate === true) {
 				await student[0].update({
 					$set: {
 						presences: [
@@ -169,7 +168,7 @@ router.patch('/students/',async(req,res) => {
 						]
 					}
 				})
-			}else {
+			} else {
 				await student[0].update({
 					$push: {
 						presences: [
@@ -186,6 +185,19 @@ router.patch('/students/',async(req,res) => {
 	res.status(200)
 	   .send();
 });
+
+router.patch('/students/updateGrade',async(req,res) => {
+		const studentId = req.body.updateGradeArray[0].studentId;
+		const gradeId = req.body.updateGradeArray[0].gradeId;
+		const student = Student.find({_id: studentId});
+		const {grades} = student;
+		console.log(grades);
+		try {
+		} catch(e) {
+			console.log(e);
+		}
+	}
+);
 
 router.delete('/students/:id',auth,async(req,res) => {
 	try {

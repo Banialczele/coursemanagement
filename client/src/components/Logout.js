@@ -5,9 +5,8 @@ import axios from 'axios';
 const Logout = () => {
 	const history = useHistory();
 	const loggedTeacher = JSON.parse(localStorage.getItem('loggedTeacher'));
-	console.log(loggedTeacher);
 	const redirectToEntry = () => {
-		axios.post('/teachers/logout',{
+		axios.post('http://localhost:3001/teachers/logout',{
 			     teacher: loggedTeacher
 		     })
 		     .then(res => {
