@@ -51,26 +51,28 @@ class AddCourse extends React.Component {
 			     }
 		     })
 		     .then(res => {
-			     console.log(this.state.studentList);
-			     this.state.studentList.map(student => {
-				     return axios.post('/students/add',{
-					                 name: student.name,
-					                 last: student.last,
-					                 email: student.email,
-					                 course: res.data._id,
-					                 teacher: JSON.parse(this.state.loggedTeacher)._id
-				                 },{
-					                 headers: {
-						                 "Content-Type": "application/json"
-					                 }
-				                 })
-				                 .then(res => alert('successfully added course and students!'))
-				                 .catch(err => {
-					                 alert(`${student.email} is already taken, please use another one.`);
-				                 });
-			     })
+			     if(res.status === 201) {
+				     axios.post('/students/add',{
+					          studentList: this.state.studentList,
+					          course: res.data._id,
+					          teacher: this.state.loggedTeacher
+				          },{
+					          headers: {
+						          "Content-Type": "application/json",
+						          'Authorization': `Bearer ${localStorage.getItem("mysecrettoken")}`
+					          }
+				          })
+				          .then(res => {
+					          alert('Successfully added course and student.');
+				          })
+				          .catch(err => {
+					          alert('Unable to add students and course.');
+				          })
+			     } else {
+				     alert('Unable to add students and course.');
+			     }
 		     })
-		     .catch(err => console.log(err));
+		     .catch(err => console.log(err))
 	};
 
 	//adding student, spreading all courses already added to array and adding new object after last student
@@ -96,14 +98,14 @@ class AddCourse extends React.Component {
 	};
 
 	addingCourseForm = (state) => {
-		 if( localStorage.length > 1) {
+		if(localStorage.length > 1) {
 			return (
 				<div className="addCourseContainer">
 					<div className="addCourseFormContainer">
 						<form onSubmit={this.onFormSubmit} onChange={this.handleChange} className="addCourseForm">
 							<div className="displayData">
 								<label className="labelStyles">Nazwa kursu</label><br/>
-								<input className="AddCourseInputStyle" type="text" onChange={this.onNameChange} required /><br/>
+								<input className="AddCourseInputStyle" type="text" onChange={this.onNameChange} required/><br/>
 								<label className="DataLabelStyles  labelStyles">Data</label> <br/>
 								<DatePicker
 									className="datePickerStyle"
@@ -130,7 +132,7 @@ class AddCourse extends React.Component {
 					</div>
 				</div>
 			);
-		} else if( localStorage.length === 0) {
+		} else if(localStorage.length === 0) {
 			alert('Please login to continue');
 			return (
 				<Redirect to={'/'}/>

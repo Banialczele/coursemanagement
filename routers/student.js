@@ -7,24 +7,33 @@ const moment = require('moment');
 const router = new express.Router();
 
 router.post('/students/add',async(req,res) => {
-	const student = new Student({
-		...req.body,
-		teacher: req.body.teacher,
-		presences: [
-			{
-				presence: false,
-				date: new Date()
-			}
-		]
-	});
+	const teacher = JSON.parse(req.body.teacher);
 	try {
-		await student.save();
+		for(let i = 0; i < req.body.studentList.length; i++) {
+			const student = await new Student({
+				...req.body.studentList[i],
+				teacher: teacher._id,
+				course: req.body.course,
+				presences: [
+					{
+						presence: false,
+						date: new Date()
+					}
+				]
+			});
+			try {
+				await student.save();
+			} catch(err) {
+				console.log(err);
+			}
+		}
 		res.status(201)
-		   .send(student);
-	} catch(error) {
+		   .send();
+	} catch(e) {
 		res.status(400)
-		   .send(error);
+		   .send(e);
 	}
+
 });
 
 router.post('/students/login',async(req,res) => {
@@ -135,17 +144,33 @@ router.patch('/students/',async(req,res) => {
 		const student = await Student.find({email: absentUser.studentEmail});
 		const checkDate = moment(absentUser.nextClasses)
 			.isSame(date,'day');
+		//Check if today are first classes so startingDate = nextClasses, then update today's presence, else push new presence  
+		const checkClassDate = moment(absentUser.startingDate)
+			.isSame(absentUser.nextClasses);
 		if(absentUser.presence === false && checkDate === true) {
-			await student[0].update({
-				$push: {
-					presences: [
-						{
-							presence: false,
-							date: absentUser.nextClasses
-						}
-					]
-				}
-			});
+			if(checkClassDate === true) {
+				await student[0].update({
+					$set: {
+						presences: [
+							{
+								presence: false,
+								date: absentUser.nextClasses
+							}
+						]
+					}
+				})
+			} else {
+				await student[0].update({
+					$push: {
+						presences: [
+							{
+								presence: false,
+								date: absentUser.nextClasses
+							}
+						]
+					}
+				});
+			}
 		}
 	});
 	//array of users present during classes
@@ -153,7 +178,7 @@ router.patch('/students/',async(req,res) => {
 		const student = await Student.find({email: user.studentEmail});
 		const checkDate = moment(user.nextClasses)
 			.isSame(date,'day');
-		//Check if first classes or some next in time.
+		//Check if today are first classes so startingDate = nextClasses, then update today's presence, else push new presence
 		const checkClassDate = moment(user.startingDate)
 			.isSame(user.nextClasses);
 		if(user.presence === true && checkDate === true) {

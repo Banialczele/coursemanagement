@@ -1,29 +1,32 @@
 .addGradeContainer {
-    padding: 25px;
     background: black;
+    padding: 10px;
 }
 
-.addGradeGridHeader{
+.addGradeGridHeader {
+    margin: 0 auto;
     display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        padding: 10px;
-        justify-items: center;
-        align-items: center;
-        border: 1px solid white;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid white;
+    width: 90%;
 }
 
 .studentGridContainer {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    margin: 10px 0;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 auto;
     padding: 15px 10px;
     background: rgb(38, 121, 255);
     justify-items: center;
     align-items: center;
+    width: 90%;
 }
 
 .addGradeForm {
-    width: 45vw;
+    width: 100%;
 }
 
 .addGradeButton {
@@ -31,6 +34,7 @@
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
+    margin-top: 5px;
     font-size: 16px;
     transition-duration: 0.5s;
 }

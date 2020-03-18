@@ -17,6 +17,7 @@ const StudentInputs = props => {
 								data-id={idx}
 								id={studentId}
 								className="name"
+								placeholder="admin"
 								required
 							/>
 						</div>
@@ -31,6 +32,7 @@ const StudentInputs = props => {
 								data-id={idx}
 								id={studentLast}
 								className="last"
+								placeholder="admin"
 								required
 							/>
 						</div>
@@ -39,11 +41,12 @@ const StudentInputs = props => {
 					<div className="studentDataContainer"><label className="studentLabel" htmlFor={studentEmail}>Email</label>
 						<div className="studentInput">
 							<input
-								type="text"
+								type="email"
 								name={studentEmail}
 								data-id={idx}
 								id={studentEmail}
 								className="email"
+								placeholder="admin@gmail.com"
 								required
 							/>
 						</div>

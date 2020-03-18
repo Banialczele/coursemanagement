@@ -57,19 +57,14 @@ class AddGrade extends React.Component {
 
 	renderStudentList = () => {
 		return (
-			<div>
+			<div className="addGradePadding">
 				<form onSubmit={this.handleFormSubmit} className="addGradeForm">
 					{this.getStudentData(this.state.course)
 					     .map((student,i) => {
 						     return (
 							     <div className="addGradeGridContainer">
-								     <div className="addGradeGridHeader">
-									     <div>Imie Nazwisko</div>
-									     <div>Forma wiedzy</div>
-									     <div>Ocena</div>
-								     </div>
 								     <div key={i} className="studentGridContainer">{student.name} {student.last}<br/>
-									     <label htmlFor="weight" >
+									     <label htmlFor="weight">
 										     <select name="weight"
 										             onChange={(e) => this.handleWeightChange(student,e)}
 										     >
@@ -103,6 +98,11 @@ class AddGrade extends React.Component {
 	render() {
 		return (
 			<div className="addGradeContainer">
+				<div className="addGradeGridHeader">
+					<div>Imie Nazwisko</div>
+					<div>Forma wiedzy</div>
+					<div>Ocena</div>
+				</div>
 				{this.renderStudentList()}
 			</div>
 		);

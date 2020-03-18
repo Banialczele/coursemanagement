@@ -9,7 +9,6 @@ const moment = require('moment');
 //adding course
 router.post('/course/add',authTeacher,async(req,res) => {
 	try {
-		console.log(req.teacher);
 		const course = await new Course({
 			...req.body,
 			startingDate: req.body.startingDate,
