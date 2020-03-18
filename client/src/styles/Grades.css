@@ -75,6 +75,7 @@
 
     .GridTableChild {
         display: grid;
+        text-align: center;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(8, 1fr);
         align-content: center;

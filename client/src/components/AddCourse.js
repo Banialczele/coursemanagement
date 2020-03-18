@@ -103,7 +103,7 @@ class AddCourse extends React.Component {
 						<form onSubmit={this.onFormSubmit} onChange={this.handleChange} className="addCourseForm">
 							<div className="displayData">
 								<label className="labelStyles">Nazwa kursu</label><br/>
-								<input className="AddCourseInputStyle" type="text" onChange={this.onNameChange}/ required ><br/>
+								<input className="AddCourseInputStyle" type="text" onChange={this.onNameChange} required /><br/>
 								<label className="DataLabelStyles  labelStyles">Data</label> <br/>
 								<DatePicker
 									className="datePickerStyle"
