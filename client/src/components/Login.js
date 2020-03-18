@@ -5,7 +5,7 @@ import '../styles/Login.css';
 
 const DoLogin = async(email,password) => {
 	const loginTeacher = await axios.post(
-		'http://localhost:3001/teachers/login',{
+		'/teachers/login',{
 			email,
 			password
 		});
@@ -40,6 +40,8 @@ class Login extends React.Component {
 			.then(res => {
 				localStorage.setItem('mysecrettoken',res.data.token);
 				this.setState({teacher: res.data.teacher,logged: true,status: res.status,showingMessage: true});
+
+				localStorage.setItem('loggedTeacher',JSON.stringify(this.state.teacher));
 				setTimeout(() => {
 					this.setState({showingMessage: false});
 				},2000);
@@ -91,7 +93,6 @@ class Login extends React.Component {
 	}
 
 	render() {
-		localStorage.setItem('loggedTeacher',JSON.stringify(this.state.teacher));
 		if(this.state.logged) {
 			return (<div className="loginContainer"> You're logged in as {this.state.teacher.name} {this.state.teacher.last}</div>)
 		} else {

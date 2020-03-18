@@ -131,23 +131,23 @@ router.patch('/students/',async(req,res) => {
 	const absents = req.body.absents.map(student => student);
 	const date = new Date();
 	//array of users which are not present on classes
-	// absents.map(async absentUser => {
-	// 	const student = await Student.find({email: absentUser.studentEmail});
-	// 	const checkDate = moment(absentUser.nextClasses)
-	// 		.isSame(date,'day');
-	// 	if(absentUser.presence === false && checkDate === true) {
-	// 		await student[0].update({
-	// 			$push: {
-	// 				presences: [
-	// 					{
-	// 						presence: false,
-	// 						date: absentUser.nextClasses
-	// 					}
-	// 				]
-	// 			}
-	// 		});
-	// 	}
-	// });
+	absents.map(async absentUser => {
+		const student = await Student.find({email: absentUser.studentEmail});
+		const checkDate = moment(absentUser.nextClasses)
+			.isSame(date,'day');
+		if(absentUser.presence === false && checkDate === true) {
+			await student[0].update({
+				$push: {
+					presences: [
+						{
+							presence: false,
+							date: absentUser.nextClasses
+						}
+					]
+				}
+			});
+		}
+	});
 	//array of users present during classes
 	updateArray.map(async user => {
 		const student = await Student.find({email: user.studentEmail});
@@ -189,10 +189,16 @@ router.patch('/students/',async(req,res) => {
 router.patch('/students/updateGrade',async(req,res) => {
 		const studentId = req.body.updateGradeArray[0].studentId;
 		const gradeId = req.body.updateGradeArray[0].gradeId;
-		const student = Student.find({_id: studentId});
-		const {grades} = student;
-		console.log(grades);
+		const newGrade = req.body.updateGradeArray[0].newGrade;
 		try {
+			const student = await Student.updateOne(
+				// Find a document with _id matching the studentId
+				{"_id": studentId},
+				// Update the student grade
+				{$set: {"grades.$[selectedGrade].grade": newGrade}},
+				{arrayFilters: [{"selectedGrade._id": gradeId}]},
+			)
+
 		} catch(e) {
 			console.log(e);
 		}

@@ -22,7 +22,7 @@ class Activity extends React.Component {
 		if(localStorage.length > 1) {
 			const teacher = localStorage.getItem('loggedTeacher');
 			this.setState({isLogged: true, teacher: teacher});
-			axios.get('http://localhost:3001/course/getAll',{
+			axios.get('/course/getAll',{
 				     headers: {
 					     "Content-Type": "application/json",
 					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`
