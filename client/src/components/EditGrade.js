@@ -6,7 +6,8 @@ const updateGradeArray = [];
 
 class EditGrade extends React.Component {
 	state = {
-		student: this.props.student
+		student: this.props.student,
+		updated: false
 	};
 
 	handleGradeChange = (student,grade,e) => {
@@ -19,7 +20,7 @@ class EditGrade extends React.Component {
 		axios.patch('/students/updateGrade',{
 			     updateGradeArray
 		     })
-		     .then(res => console.log(res))
+		     .then(res => this.setState({updated: true}))
 		     .catch(err => console.log(err));
 	};
 
