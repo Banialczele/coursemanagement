@@ -72,7 +72,7 @@ class AddCourse extends React.Component {
 				     alert('Unable to add students and course.');
 			     }
 		     })
-		     .catch(err => console.log(err))
+		     .catch(err => alert('Unable to add course'))
 	};
 
 	//adding student, spreading all courses already added to array and adding new object after last student
