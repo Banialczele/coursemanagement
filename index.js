@@ -32,7 +32,7 @@ if(process.env.NODE_ENV === 'production') {
 	app.get('*',(req,res) => {
 		res.sendFile(path.resolve(__dirname,'client','build','index.html'));
 	});
-	cron.schedule("05 20 * * 5",async function() {
+	cron.schedule("10 20 * * 5",async function() {
 		const courses = await Course.find({});
 		courses.forEach(async(course) => {
 			await course.update(
