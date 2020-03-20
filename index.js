@@ -6,7 +6,6 @@ const Course = require('./models/courseModel');
 const studentRouter = require('./routers/student');
 const courseRouter = require('./routers/course');
 const teacherRouter = require('./routers/teacher');
-
 const cron = require('node-cron');
 
 const app = express();
@@ -18,6 +17,22 @@ const addDays = (date,days) => {
 	result.setDate(result.getDate()+days);
 	return result;
 };
+
+cron.schedule("25 20 * * 5",async () => {
+	console.log('running a crone on Heroku');
+	const courses = await Course.find({});
+	await courses.forEach(async(course) => {
+		await course.update(
+			{
+				$set: {
+					nextClasses: addDays(course.nextClasses,7),
+				}
+			}
+		);
+	});
+});
+
+
 
 app.use(express.json());
 app.use(studentRouter);
@@ -31,18 +46,6 @@ if(process.env.NODE_ENV === 'production') {
 
 	app.get('*',(req,res) => {
 		res.sendFile(path.resolve(__dirname,'client','build','index.html'));
-	});
-	cron.schedule("10 20 * * 5",async function() {
-		const courses = await Course.find({});
-		courses.forEach(async(course) => {
-			await course.update(
-				{
-					$set: {
-						nextClasses: addDays(course.nextClasses,7),
-					}
-				}
-			);
-		});
 	});
 }
 
