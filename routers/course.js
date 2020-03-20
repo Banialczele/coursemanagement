@@ -66,7 +66,7 @@ router.delete('/course/delete/:id',async(req,res) => {
 });
 
 
-router.patch('/course/updateTime',async(req,res) => {
+router.patch('/course/updateTime',async(req,res, next) => {
 
 	try {
 		const addDays = (date,days) => {
@@ -86,10 +86,8 @@ router.patch('/course/updateTime',async(req,res) => {
 					}
 				);
 			});
-
-			
 			res.status(200).send();
-
+			next();
 		});
 	} catch (e) {
 		console.log(e);

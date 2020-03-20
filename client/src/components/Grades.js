@@ -14,7 +14,8 @@ class Grades extends React.Component {
 		courses: [],
 		students: [],
 		finalGrade: '',
-		isLogged: false
+		isLogged: false,
+		courseDate: ''
 	};
 
 	componentDidMount() {
@@ -37,9 +38,7 @@ class Grades extends React.Component {
 	};
 
 	handleButtonClick = () => {
-		axios.patch('/course/updateTime')
-		     .then(res => res)
-		     .catch(err => console.log(err));
+
 	};
 
 	showTableHeader = () => {
@@ -48,8 +47,7 @@ class Grades extends React.Component {
 				<div className="GridTableHeaderChild">
 					<div>Nazwa kursu</div>
 					<div>Rozpoczęcie zajęć</div>
-					<div className="gradesShowColumn">Kolejne zajęcia
-						<button type="button" className="buttonStyle" onClick={this.handleButtonClick}>Aktualizuj date</button></div>
+					<div className="gradesShowColumn">Kolejne zajęcia</div>
 					<div>Student</div>
 					<div>Obecność</div>
 					<div>Ocena końcowa</div>
