@@ -67,11 +67,11 @@ class Grades extends React.Component {
 					<div key={i} className="GridTableBody">
 						<div key={i} className="GridTableChild">
 							<div><b>{student.course.name}</b></div>
-							<div>{moment(this.showDate(student.course.startingDate))
-								.format('DD-MM-YYYY, h:mm a')}</div>
+							<div>{moment(this.showDate(student.course.startingDate), 'DD-MM-YYYY h:mm a')
+								.format('DD-MM-YYYY h:mm a')}</div>
 							<div>
-								{moment(this.showDate(student.course.nextClasses))
-									.format('DD-MM-YYYY, h:mm a')}
+								{moment(this.showDate(student.course.nextClasses), 'DD-MM-YYYY h:mm a')
+									.format('DD-MM-YYYY h:mm a')}
 							</div>
 							<div>
 								<b>{student.name} {student.last}</b>
