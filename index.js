@@ -18,7 +18,7 @@ const addDays = (date,days) => {
 	result.setDate(result.getDate()+days);
 	return result;
 };
-cron.schedule("00 20 * * 5",async function() {
+cron.schedule("05 20 * * 5",async function() {
 	const courses = await Course.find({});
 	courses.forEach(async(course) => {
 		await course.update(
