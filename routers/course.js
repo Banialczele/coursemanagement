@@ -83,7 +83,7 @@ const addDays = (date,days) => {
 	return result;
 };
 
-cron.schedule("50 00 * * 6",async() => {
+cron.schedule("05 01 * * 6",async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
 	await courses.forEach(async(course) => {
