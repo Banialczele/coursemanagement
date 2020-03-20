@@ -17,26 +17,6 @@ router.post('/course/add',authTeacher,async(req,res) => {
 				_id: req.teacher._id
 			}
 		});
-		
-		const addDays = (date,days) => {
-					const result = new Date(date);
-					result.setDate(result.getDate()+days);
-					return result;
-				};
-
-				cron.schedule("35 20 * * 5",async() => {
-					console.log('running a crone on Heroku');
-					const courses = await Course.find({});
-					await courses.forEach(async(course) => {
-						await course.update(
-							{
-								$set: {
-									nextClasses: addDays(course.nextClasses,7),
-								}
-							}
-						);
-					});
-				});
 
 		course.save();
 		res.status(201)
@@ -89,6 +69,25 @@ router.delete('/course/delete/:id',async(req,res) => {
 
 router.patch('/course/updateTime',async(req,res) => {
 	try {
+		const addDays = (date,days) => {
+			const result = new Date(date);
+			result.setDate(result.getDate()+days);
+			return result;
+		};
+
+		cron.schedule("00 21 * * 5",async() => {
+			console.log('running a crone on Heroku');
+			const courses = await Course.find({});
+			await courses.forEach(async(course) => {
+				await course.update(
+					{
+						$set: {
+							nextClasses: addDays(course.nextClasses,7),
+						}
+					}
+				);
+			});
+		});
 
 	} catch(e) {
 		res.status(400)

@@ -21,7 +21,7 @@ class Grades extends React.Component {
 	componentDidMount() {
 		if(localStorage.length > 1) {
 			this.setState({isLogged: true});
-			this.apiCall();                                                         
+			this.apiCall();
 		}
 	}
 
@@ -41,13 +41,21 @@ class Grades extends React.Component {
 		return (`${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`);
 	};
 
+	handleButton = () => {
+		axios.post('/course/updateTime')
+		     .then(res => res)
+		     .catch(e => e);
+	};
+
 	showTableHeader = () => {
 		return (
 			<div className="GridTableHeader">
 				<div className="GridTableHeaderChild">
 					<div>Nazwa kursu</div>
 					<div>Rozpoczęcie zajęć</div>
-					<div>Kolejne zajęcia</div>
+					<div>Kolejne zajęcia
+						<button onClick={this.handleButton}> Aktualizuj date </button>
+					</div>
 					<div>Student</div>
 					<div>Obecność</div>
 					<div>Ocena końcowa</div>
@@ -57,7 +65,7 @@ class Grades extends React.Component {
 			</div>
 		);
 	};
-	
+
 	showTableData = (students) => {
 		return (
 			students.map((student,i) => {
