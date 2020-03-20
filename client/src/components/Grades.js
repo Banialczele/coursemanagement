@@ -68,10 +68,10 @@ class Grades extends React.Component {
 						<div key={i} className="GridTableChild">
 							<div><b>{student.course.name}</b></div>
 							<div>{moment(this.showDate(student.course.startingDate))
-								.format('DD/MM/YYYY h:mm a')}</div>
+								.format('DD MM YYYY h:mm a')}</div>
 							<div>
 								{moment(this.showDate(student.course.nextClasses))
-									.format('DD/MM/YYYY h:mm a')}
+									.format('DD MM YYYY h:mm a')}
 							</div>
 							<div>
 								<b>{student.name} {student.last}</b>
