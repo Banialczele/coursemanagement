@@ -2,37 +2,14 @@ const express = require('express');
 require('./db/mongoose.js');
 const cors = require('cors');
 const path = require('path');
-const Course = require('./models/courseModel');
 const studentRouter = require('./routers/student');
 const courseRouter = require('./routers/course');
 const teacherRouter = require('./routers/teacher');
-const cron = require('node-cron');
+
 
 const app = express();
 app.use(cors());
 const port = process.env.PORT || 3001;
-
-const addDays = (date,days) => {
-	const result = new Date(date);
-	result.setDate(result.getDate()+days);
-	return result;
-};
-
-cron.schedule("25 20 * * 5",async () => {
-	console.log('running a crone on Heroku');
-	const courses = await Course.find({});
-	await courses.forEach(async(course) => {
-		await course.update(
-			{
-				$set: {
-					nextClasses: addDays(course.nextClasses,7),
-				}
-			}
-		);
-	});
-});
-
-
 
 app.use(express.json());
 app.use(studentRouter);

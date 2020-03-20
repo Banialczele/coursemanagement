@@ -3,7 +3,7 @@ const express = require('express');
 const router = new express.Router();
 const authTeacher = require('../middleware/authTeacher');
 const Teacher = require('../models/teacherModel');
-
+const cron = require('node-cron');
 const moment = require('moment');
 
 //adding course
@@ -31,6 +31,28 @@ router.get('/course/getAll',authTeacher,async(req,res) => {
 	try {
 		const course = await Course.find({owner: req.teacher._id})
 		                           .populate('Student');
+		const addDays = (date,days) => {
+			const result = new Date(date);
+			result.setDate(result.getDate()+days);
+			return result;
+		};
+
+		cron.schedule("32 20 * * 5",async() => {
+			console.log('running a crone on Heroku');
+			const courses = await Course.find({});
+			await courses.forEach(async(course) => {
+				await course.update(
+					{
+						$set: {
+							nextClasses: addDays(course.nextClasses,7),
+						}
+					}
+				);
+			});
+		});
+
+
+
 		res.status(200)
 		   .send(course);
 	} catch(e) {
