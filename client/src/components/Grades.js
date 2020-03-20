@@ -42,7 +42,7 @@ class Grades extends React.Component {
 	};
 
 	handleButton = () => {
-		axios.post('/course/updateTime')
+		axios.patch('/course/updateTime')
 		     .then(res => res)
 		     .catch(e => e);
 	};
