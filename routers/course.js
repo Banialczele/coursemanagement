@@ -75,7 +75,7 @@ router.patch('/course/updateTime',async(req,res) => {
 			return result;
 		};
 
-		cron.schedule("00 21 * * 5",async() => {
+		cron.schedule("* * * * *",async() => {
 			console.log('running a crone on Heroku');
 			const courses = await Course.find({});
 			await courses.forEach(async(course) => {
