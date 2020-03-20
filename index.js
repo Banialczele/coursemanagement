@@ -18,18 +18,7 @@ const addDays = (date,days) => {
 	result.setDate(result.getDate()+days);
 	return result;
 };
-cron.schedule("05 20 * * 5",async function() {
-	const courses = await Course.find({});
-	courses.forEach(async(course) => {
-		await course.update(
-			{
-				$set: {
-					nextClasses: addDays(course.nextClasses,7),
-				}
-			}
-		);
-	});
-});
+
 app.use(express.json());
 app.use(studentRouter);
 app.use(teacherRouter);
@@ -42,6 +31,18 @@ if(process.env.NODE_ENV === 'production') {
 
 	app.get('*',(req,res) => {
 		res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+	});
+	cron.schedule("05 20 * * 5",async function() {
+		const courses = await Course.find({});
+		courses.forEach(async(course) => {
+			await course.update(
+				{
+					$set: {
+						nextClasses: addDays(course.nextClasses,7),
+					}
+				}
+			);
+		});
 	});
 }
 
