@@ -28,7 +28,7 @@
 
 .GridTableBody {
     display: grid;
-    min-width: 300px;
+    min-width: 200px;
 }
 
 .GridTableChild {
