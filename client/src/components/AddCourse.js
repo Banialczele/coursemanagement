@@ -52,7 +52,7 @@ class AddCourse extends React.Component {
 		     })
 		     .then(res => {
 			     if(res.status === 201) {
-				     axios.post('/students/add',{
+				     axios.post('http://localhost:3001/students/add',{
 					          studentList: this.state.studentList,
 					          course: res.data._id,
 					          teacher: this.state.loggedTeacher

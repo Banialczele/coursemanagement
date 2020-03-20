@@ -3,7 +3,7 @@ const express = require('express');
 const router = new express.Router();
 const authTeacher = require('../middleware/authTeacher');
 const Teacher = require('../models/teacherModel');
-const cron = require('node-cron');
+
 const moment = require('moment');
 
 //adding course
@@ -66,31 +66,12 @@ router.delete('/course/delete/:id',async(req,res) => {
 });
 
 
-router.patch('/course/updateTime',async(req,res, next) => {
-
+router.patch('/course/updateTime',async(req,res) => {
 	try {
-		const addDays = (date,days) => {
-			const result = new Date(date);
-			result.setDate(result.getDate()+days);
-			return result;
-		};
 
-		cron.schedule("* * * * *",async function() {
-			const courses = await Course.find({});
-			courses.forEach(async(course) => {
-				await course.update(
-					{
-						$set: {
-							nextClasses: addDays(course.nextClasses,7)
-						}
-					}
-				);
-			});
-			res.status(200).send();
-			next();
-		});
-	} catch (e) {
-		console.log(e);
+	} catch(e) {
+		res.status(400)
+		   .send();
 	}
 })
 ;

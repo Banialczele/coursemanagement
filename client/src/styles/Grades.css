@@ -7,6 +7,7 @@
 
 .GridTableHeader {
     width: 100%;
+    padding: 15px 0;
 }
 
 .GridTableHeaderChild {
@@ -16,14 +17,6 @@
     place-items: center;
     place-content: center;
     padding: 5px 0;
-}
-
-.gradesShowColumn {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
 }
 
 .GridTableBody {
@@ -59,42 +52,37 @@
 
 @media screen and (max-width: 900px) {
     .background {
-        background: rgb(38, 121, 255);
         margin: 35px auto;
-        width: 100vw;
         border-radius: 5px;
+        display: inline-block;
+    }
+
+    .GridTableHeader {
+        padding: 0;
     }
 
     .GridTableParent {
+        background: rgb(38, 121, 255);
         display: grid;
-        grid-template-columns: 200px 1fr 1fr;
+        grid-template-columns: 200px 200px;
         grid-auto-flow: column;
         height: 100%;
+        width: 100vw;
+        padding-right:30px;
     }
 
     .GridTableHeaderChild {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(8, 1fr);
-        align-content: center;
-        justify-content: center;
         height: 100%;
     }
 
     .GridTableChild {
         display: grid;
-        text-align: center;
+        border: 1px solid red;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(8, 1fr);
-        align-content: center;
-        justify-content: center;
         height: 100%;
-    }
-
-    .gradesShowColumn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-items: center;
     }
 }

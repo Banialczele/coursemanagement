@@ -21,26 +21,24 @@ class Grades extends React.Component {
 	componentDidMount() {
 		if(localStorage.length > 1) {
 			this.setState({isLogged: true});
-			axios.get('/students/getAll',{
-				     headers: {
-					     "Content-Type": "application/json",
-					     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
-				     }
-			     })
-			     .then(res => {this.setState({students: res.data})})
-			     .catch(err => console.log(err));
+			this.apiCall();                                                         
 		}
 	}
+
+	apiCall = () => {
+		axios.get('/students/getAll',{
+			     headers: {
+				     "Content-Type": "application/json",
+				     "Authorization": `Bearer ${localStorage.getItem('mysecrettoken')}`,
+			     }
+		     })
+		     .then(res => {this.setState({students: res.data})})
+		     .catch(err => console.log(err));
+	};
 
 	showDate = (date) => {
 		const currentDate = new Date(date);
 		return (`${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`);
-	};
-
-	handleButtonClick = () => {
-		axios.patch('/course/updateTime')
-		     .then(res => res)
-		     .catch(err => console.log(err));
 	};
 
 	showTableHeader = () => {
@@ -49,8 +47,7 @@ class Grades extends React.Component {
 				<div className="GridTableHeaderChild">
 					<div>Nazwa kursu</div>
 					<div>Rozpoczęcie zajęć</div>
-					<div className="gradesShowColumn">Kolejne zajęcia
-						<button type="button" className="buttonStyle" onClick={this.handleButtonClick}>Aktualizuj date</button></div>
+					<div>Kolejne zajęcia</div>
 					<div>Student</div>
 					<div>Obecność</div>
 					<div>Ocena końcowa</div>
@@ -60,7 +57,7 @@ class Grades extends React.Component {
 			</div>
 		);
 	};
-
+	
 	showTableData = (students) => {
 		return (
 			students.map((student,i) => {
@@ -68,10 +65,10 @@ class Grades extends React.Component {
 					<div key={i} className="GridTableBody">
 						<div key={i} className="GridTableChild">
 							<div><b>{student.course.name}</b></div>
-							<div>{moment(this.showDate(student.course.startingDate), 'DD-MM-YYYY h:mm a')
+							<div>{moment(this.showDate(student.course.startingDate),'YYYY-MM-DDTh:mm a')
 								.format('DD-MM-YYYY h:mm a')}</div>
 							<div>
-								{moment(this.showDate(student.course.nextClasses), 'DD-MM-YYYY h:mm a')
+								{moment(this.showDate(student.course.nextClasses),'YYYY-MM-DDTh:mm a')
 									.format('DD-MM-YYYY h:mm a')}
 							</div>
 							<div>
