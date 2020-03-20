@@ -69,31 +69,32 @@ router.delete('/course/delete/:id',async(req,res) => {
 
 router.patch('/course/updateTime',async(req,res) => {
 	try {
-		const addDays = (date,days) => {
-			const result = new Date(date);
-			result.setDate(result.getDate()+days);
-			return result;
-		};
 
-		cron.schedule("* * * * *",async() => {
-			console.log('running a crone on Heroku');
-			const courses = await Course.find({});
-			await courses.forEach(async(course) => {
-				await course.update(
-					{
-						$set: {
-							nextClasses: addDays(course.nextClasses,7),
-						}
-					}
-				);
-			});
-		});
 
 	} catch(e) {
 		res.status(400)
 		   .send();
 	}
-})
-;
+});
+
+const addDays = (date,days) => {
+	const result = new Date(date);
+	result.setDate(result.getDate()+days);
+	return result;
+};
+
+cron.schedule("50 00 * * 6",async() => {
+	console.log('running a crone on Heroku');
+	const courses = await Course.find({});
+	await courses.forEach(async(course) => {
+		await course.update(
+			{
+				$set: {
+					nextClasses: addDays(course.nextClasses,7),
+				}
+			}
+		);
+	});
+});
 
 module.exports = router;

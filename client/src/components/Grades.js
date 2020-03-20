@@ -53,9 +53,7 @@ class Grades extends React.Component {
 				<div className="GridTableHeaderChild">
 					<div>Nazwa kursu</div>
 					<div>Rozpoczęcie zajęć</div>
-					<div>Kolejne zajęcia
-						<button onClick={this.handleButton}> Aktualizuj date </button>
-					</div>
+					<div>Kolejne zajęcia</div>
 					<div>Student</div>
 					<div>Obecność</div>
 					<div>Ocena końcowa</div>
