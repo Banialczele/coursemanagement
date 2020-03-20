@@ -86,7 +86,7 @@ const addDays = (date,days) => {
 cron.schedule("05 01 * * 6",async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
-	await courses.forEach(async(course) => {
+	return (await courses.forEach(async(course) => {
 		await course.update(
 			{
 				$set: {
@@ -94,7 +94,7 @@ cron.schedule("05 01 * * 6",async() => {
 				}
 			}
 		);
-	});
+	}));
 });
 
 module.exports = router;
