@@ -61,7 +61,7 @@
     .background {
         background: rgb(38, 121, 255);
         margin: 35px auto;
-        width: 100%;
+        width: 100vw;
         border-radius: 5px;
     }
 
