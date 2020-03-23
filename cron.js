@@ -11,7 +11,7 @@ const updateDate = cron.schedule("* * * * *",async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
 	console.log(courses);
-	return (await courses.forEach(async(course) => {
+	await courses.forEach(async(course) => {
 		await course.update(
 			{
 				$set: {
@@ -19,7 +19,7 @@ const updateDate = cron.schedule("* * * * *",async() => {
 				}
 			}
 		);
-	}));
+	});
 });
 
 updateDate;
