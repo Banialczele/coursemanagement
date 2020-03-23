@@ -21,5 +21,6 @@ const updateDate = async() => {
 	} catch (e){
 		throw new Error(e);
 	}
+	process.exit();
 };
 updateDate();
