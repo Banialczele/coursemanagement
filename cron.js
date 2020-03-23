@@ -22,5 +22,5 @@ const updateDate = cron.schedule("* * * * *",async() => {
 	}));
 });
 
-updateDate();
+updateDate;
 process.exit();
