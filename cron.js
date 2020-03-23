@@ -1,4 +1,3 @@
-#! /app/bin/node
 const Course = require('./models/courseModel');
 
 const addDays = (date,days) => {
