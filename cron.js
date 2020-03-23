@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const Course = require('../models/courseModel');
+const Course = require('./models/courseModel');
 
 const addDays = (date,days) => {
 	const result = new Date(date);
