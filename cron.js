@@ -18,7 +18,6 @@ const updateDate = async() => {
 				}
 			);
 		});
-		process.exit();
 	} catch (e){
 		throw new Error(e);
 	}
