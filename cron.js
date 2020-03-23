@@ -15,7 +15,7 @@ const updateDate = async() => {
 					$set: {
 						nextClasses: addDays(course.nextClasses,7),
 					}
-				}
+				}, { multi: true}
 			);
 		}
 	} catch (e){
