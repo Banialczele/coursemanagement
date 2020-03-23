@@ -44,7 +44,6 @@ class AddGrade extends React.Component {
 			this.setState({weight: e.target.value});
 			weights.push({waga: e.target.value,owner: student.email,date: this.state.date});
 		}
-		console.log(weights);
 	};
 
 	handleGradeChange = (student,e) => {
@@ -52,7 +51,6 @@ class AddGrade extends React.Component {
 			this.setState({grade: e.target.value});
 			grades.push({ocena: e.target.value,owner: student.email});
 		}
-		console.log(grades);
 	};
 
 	renderStudentList = () => {

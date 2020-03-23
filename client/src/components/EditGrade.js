@@ -16,7 +16,6 @@ class EditGrade extends React.Component {
 
 	handleFormSubmit = (e) => {
 		e.preventDefault();
-		console.log(updateGradeArray);
 		axios.patch('/students/updateGrade',{
 			     updateGradeArray
 		     })
