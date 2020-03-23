@@ -6,7 +6,6 @@
   "scripts": {
     "client": "cd client/src && npm start",
     "server": "node index.js",
-    "cron": "node ./routers/cron.js'",
     "start": "npm run server",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
