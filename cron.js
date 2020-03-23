@@ -23,3 +23,4 @@ const updateDate = async () => {
 };
 
 updateDate();
+process.exit();
