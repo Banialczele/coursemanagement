@@ -9,7 +9,8 @@ const addDays = (date,days) => {
 const updateDate = async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
-	return (await courses.forEach(async(course) => {
+	console.log(courses);
+	await courses.forEach(async(course) => {
 		await course.update(
 			{
 				$set: {
@@ -17,7 +18,7 @@ const updateDate = async() => {
 				}
 			}
 		);
-	}));
+	});
 };
 
 updateDate();
