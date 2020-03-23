@@ -23,5 +23,4 @@ const updateDate = cron.schedule("* * * * *",async() => {
 });
 
 updateDate();
-
-export default updateDate;
+process.exit();
