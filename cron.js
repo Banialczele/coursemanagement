@@ -10,17 +10,17 @@ const addDays = (date,days) => {
 const updateDate = async() => {
 	try {
 		const courses = await Course.find({});
-		courses.forEach(async(course) => {
+		for(const course of courses) {
 			await course.update({
 					$set: {
 						nextClasses: addDays(course.nextClasses,7),
 					}
 				}
 			);
-		});
+		}
 	} catch (e){
 		throw new Error(e);
 	}
-	process.exit();
 };
-updateDate();
+updateDate()
+	.then(r  => process.stop());
