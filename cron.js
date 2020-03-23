@@ -1,4 +1,3 @@
-const cron = require('node-cron');
 const Course = require('./models/courseModel');
 
 const addDays = (date,days) => {
@@ -7,7 +6,7 @@ const addDays = (date,days) => {
 	return result;
 };
 
-const updateDate = cron.schedule("* * * * *",async() => {
+const updateDate = async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
 	return (await courses.forEach(async(course) => {
@@ -19,6 +18,4 @@ const updateDate = cron.schedule("* * * * *",async() => {
 			}
 		);
 	}));
-});
-
-export default updateDate;
+};
