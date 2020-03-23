@@ -22,5 +22,4 @@ const updateDate = async() => {
 		throw new Error(e);
 	}
 };
-updateDate()
-	.then(r  => process.stop());
+updateDate().then(r=> process.exit());
