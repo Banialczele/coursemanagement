@@ -65,15 +65,4 @@ router.delete('/course/delete/:id',async(req,res) => {
 	}
 });
 
-router.patch('/course/updateTime',async(req,res) => {
-	try {
-
-
-	} catch(e) {
-		res.status(400)
-		   .send();
-	}
-});
-
-
 module.exports = router;
