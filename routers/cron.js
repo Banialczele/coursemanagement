@@ -7,7 +7,7 @@ const addDays = (date,days) => {
 	return result;
 };
 
-cron.schedule("* * * * *",async() => {
+const updateDate = cron.schedule("* * * * *",async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
 	return (await courses.forEach(async(course) => {
@@ -20,3 +20,5 @@ cron.schedule("* * * * *",async() => {
 		);
 	}));
 });
+
+export default updateDate;
