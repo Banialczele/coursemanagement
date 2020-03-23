@@ -1,1 +1,1 @@
-cron: npm start cron.js
+cron: node cron.js
