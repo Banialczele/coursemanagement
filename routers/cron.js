@@ -7,7 +7,7 @@ const addDays = (date,days) => {
 	return result;
 };
 
-cron.schedule("05 01 * * 6",async() => {
+cron.schedule("* * * * *",async() => {
 	console.log('running a crone on Heroku');
 	const courses = await Course.find({});
 	return (await courses.forEach(async(course) => {
