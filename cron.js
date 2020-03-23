@@ -7,19 +7,18 @@ const addDays = (date,days) => {
 	result.setDate(result.getDate()+days);
 	return result;
 };
-const updateDate = async () => {
+
+const updateDate = async() => {
 	const courses = await Course.find({});
-	cron.schedule("* * * * *",async() => {
-		courses.forEach(async(course) => {
-			await course.update(
-				{
-					$set: {
-						nextClasses: addDays(course.nextClasses,7),
-					}
+	courses.forEach(async(course) => {
+		await course.update(
+			{
+				$set: {
+					nextClasses: addDays(course.nextClasses,7),
 				}
-			);
-		});
-	})
+			}
+		);
+	});
 };
 
 updateDate();
