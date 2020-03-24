@@ -10,7 +10,7 @@ router.post('/teachers/add',async(req,res) => {
 		res.status(201)
 		   .send(teacher);
 	} catch(error) {
-		res.status(403).send(teacher);
+		res.status(400).send(error);
 	}
 });
 

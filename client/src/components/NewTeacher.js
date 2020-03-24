@@ -29,8 +29,8 @@ class NewTeacher extends React.Component {
 			     this.setState({message: true});
 		     })
 		     .catch(err => {
-		     	console.log(err.body);
-			     alert("Something went wrong")
+		     	    console.log(err.json());
+			        alert("Something went wrong")
 		     });
 	};
 
