@@ -28,7 +28,10 @@ class NewTeacher extends React.Component {
 			     alert("Successfully added teacher");
 			     this.setState({message: true});
 		     })
-		     .catch(err => alert("Something went wrong"));
+		     .catch(err => {
+		     	console.log(err.body);
+			     alert("Something went wrong")
+		     });
 	};
 
 	addingNewTeacherForm = () => {
@@ -38,7 +41,10 @@ class NewTeacher extends React.Component {
 					<form onSubmit={this.handleFormSubmit} className="teacherForm">
 						<div className="teacherLabelInput">
 							<label htmlFor="teacherName" className="teacherLabelElement">Imie:</label>
-							<input type="text" name="teacherName" onChange={e => this.setState({name: e.target.value})} className="teacherInputElement"/>
+							<input type="text"
+							       name="teacherName"
+							       onChange={e => this.setState({name: e.target.value})}
+							       className="teacherInputElement"/>
 
 						</div>
 						<br/>
@@ -81,8 +87,8 @@ class NewTeacher extends React.Component {
 	render() {
 		if(this.state.message === false) {
 			return (<div>{this.addingNewTeacherForm()}</div>)
-		}else {
-			return ( <div> Now you can login</div>)
+		} else {
+			return (<div> Now you can login</div>)
 
 		}
 	}
