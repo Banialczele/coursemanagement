@@ -10,7 +10,7 @@ router.post('/teachers/add',async(req,res) => {
 		res.status(201)
 		   .send(teacher);
 	} catch(error) {
-		res.status(400).send(error);
+		res.status(400).send(error.errmsg);
 	}
 });
 
@@ -23,7 +23,6 @@ router.post('/teachers/login',async(req,res) => {
 		res.status(200)
 		   .send({teacher, token});
 	} catch(e) {
-		console.log(e.message);
 		res.status(401).send(e);
 	}
 });

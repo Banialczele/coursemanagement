@@ -28,9 +28,9 @@ class NewTeacher extends React.Component {
 			     alert("Successfully added teacher");
 			     this.setState({message: true});
 		     })
-		     .catch(err => {
-		     	    console.log(err);
-			        alert("Something went wrong")
+		     .catch(e => {
+		     	    const duplicatedEmail = JSON.parse(e.response.config.data);
+			        alert(`${duplicatedEmail.email} is already taken! Please use another email to add teacher`);
 		     });
 	};
 
